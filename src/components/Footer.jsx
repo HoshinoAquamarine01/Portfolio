@@ -59,9 +59,10 @@ const Footer = () => {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-muted-foreground transition-colors duration-300 hover:text-primary"
+                  className="group relative inline-flex text-muted-foreground transition-all duration-300 hover:text-primary"
                 >
                   {link.label}
+                  <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-gradient-to-r from-primary to-primary/70 transition-all duration-300 group-hover:w-full" />
                 </a>
               </li>
             ))}

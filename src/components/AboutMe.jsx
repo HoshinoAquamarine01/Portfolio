@@ -3,15 +3,18 @@ import { Code, User, Briefcase, Download } from "lucide-react";
 import toast from "react-hot-toast";
 
 const AboutMe = () => {
-  const handleDownloadResume = () => {
+  const handleDownloadResume = async () => {
     try {
+      const response = await fetch(import.meta.env.VITE_CV_URL);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = import.meta.env.VITE_CV_URL;
+      link.href = url;
       link.setAttribute("download", "My_CV.pdf");
-      link.setAttribute("target", "_blank");
       document.body.appendChild(link);
       link.click();
       link.remove();
+      window.URL.revokeObjectURL(url);
       toast.success("Resume downloaded successfully!");
     } catch (error) {
       toast.error("Failed to download resume. Please try again.", error);
@@ -40,26 +43,26 @@ const AboutMe = () => {
               focused projects.
             </p>
             <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
-              <li className="rounded-lg border border-border/70 bg-card/70 px-3 py-2">
+              <li className="rounded-lg border border-border/70 bg-card/70 px-3 py-2 transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:shadow-md hover:scale-[1.02]">
                 API design and integration
               </li>
-              <li className="rounded-lg border border-border/70 bg-card/70 px-3 py-2">
+              <li className="rounded-lg border border-border/70 bg-card/70 px-3 py-2 transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:shadow-md hover:scale-[1.02]">
                 Auth and role-based access
               </li>
-              <li className="rounded-lg border border-border/70 bg-card/70 px-3 py-2">
+              <li className="rounded-lg border border-border/70 bg-card/70 px-3 py-2 transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:shadow-md hover:scale-[1.02]">
                 Responsive, accessible UI
               </li>
-              <li className="rounded-lg border border-border/70 bg-card/70 px-3 py-2">
+              <li className="rounded-lg border border-border/70 bg-card/70 px-3 py-2 transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:shadow-md hover:scale-[1.02]">
                 Maintainable code and clear structure
               </li>
             </ul>
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-              <a href="#contact" className="cosmic-button">
+              <a href="#contact" className="btn-primary">
                 Get In Touch
               </a>
               <button
                 onClick={handleDownloadResume}
-                className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center gap-2"
+                className="btn-secondary flex items-center justify-center gap-2"
                 aria-label="Download my resume"
               >
                 <Download size={18} />
@@ -69,7 +72,7 @@ const AboutMe = () => {
                 href="https://github.com/HoshinoAquamarine01"
                 target="_blank"
                 rel="noreferrer"
-                className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
+                className="btn-secondary"
                 aria-label="Visit my GitHub profile"
               >
                 View GitHub
@@ -77,9 +80,9 @@ const AboutMe = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-6">
-            <div className="gradient-border p-6 card-hover">
+            <div className="gradient-border p-6 card-hover border border-border shadow-sm transition-all duration-300 hover:shadow-[0_8px_16px_rgba(167,139,250,0.15)] hover:border-primary/40 hover:scale-[1.02]">
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10 ">
+                <div className="p-3 rounded-full bg-primary/10 transition-all duration-300 hover:bg-primary/20">
                   <Code className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
@@ -92,9 +95,9 @@ const AboutMe = () => {
                 </div>
               </div>
             </div>
-            <div className="gradient-border p-6 card-hover">
+            <div className="gradient-border p-6 card-hover border border-border shadow-sm transition-all duration-300 hover:shadow-[0_8px_16px_rgba(167,139,250,0.15)] hover:border-primary/40 hover:scale-[1.02]">
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10 ">
+                <div className="p-3 rounded-full bg-primary/10 transition-all duration-300 hover:bg-primary/20">
                   <User className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
@@ -108,9 +111,9 @@ const AboutMe = () => {
                 </div>
               </div>
             </div>
-            <div className="gradient-border p-6 card-hover">
+            <div className="gradient-border p-6 card-hover border border-border shadow-sm transition-all duration-300 hover:shadow-[0_8px_16px_rgba(167,139,250,0.15)] hover:border-primary/40 hover:scale-[1.02]">
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10 ">
+                <div className="p-3 rounded-full bg-primary/10 transition-all duration-300 hover:bg-primary/20">
                   <Briefcase className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">

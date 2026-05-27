@@ -15,7 +15,6 @@ import { cn } from "@/lib/utils.js";
 
 emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
-
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const validateForm = (data) => {
@@ -107,8 +106,8 @@ const ContactSection = () => {
       setFormData({ name: "", email: "", message: "" });
       setErrors({});
     } catch (err) {
-     toast.error("Failed to send message. Please try again.");
-     console.error("EmailJS Error:", err); 
+      toast.error("Failed to send message. Please try again.");
+      console.error("EmailJS Error:", err);
     } finally {
       setIsSubmitting(false);
     }
@@ -116,7 +115,6 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
-        
         {isSubmitting && (
           <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in">
             <div className="flex flex-col items-center">
@@ -140,36 +138,36 @@ const ContactSection = () => {
           <div className="space-y-8 ">
             <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
             <div className="space-y-6 justify-center">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
+              <div className="flex items-start space-x-4 transition-all duration-300 hover:scale-[1.02]">
+                <div className="p-3 rounded-full bg-primary/10 transition-all duration-300 hover:bg-primary/20">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <div>
                   <h4 className="font-medium"> Email</h4>
                   <a
                     href="mailto:phamgiabao141105@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-all duration-300 smooth-link"
                   >
                     phamgiabao141105@gmail.com
                   </a>
                 </div>
               </div>
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
+              <div className="flex items-start space-x-4 transition-all duration-300 hover:scale-[1.02]">
+                <div className="p-3 rounded-full bg-primary/10 transition-all duration-300 hover:bg-primary/20">
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
                 <div>
                   <h4 className="font-medium"> Phone</h4>
                   <a
                     href="tel:+840353754605"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-all duration-300 smooth-link"
                   >
                     +84353754605
                   </a>
                 </div>
               </div>
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
+              <div className="flex items-start space-x-4 transition-all duration-300 hover:scale-[1.02]">
+                <div className="p-3 rounded-full bg-primary/10 transition-all duration-300 hover:bg-primary/20">
                   <Map className="h-6 w-6 text-primary" />
                 </div>
                 <div>
@@ -188,7 +186,7 @@ const ContactSection = () => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn profile"
-                  className="text-foreground/80 hover:text-primary transition-colors"
+                  className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-125 hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]"
                 >
                   <Linkedin />
                 </a>
@@ -197,7 +195,7 @@ const ContactSection = () => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="GitHub profile"
-                  className="text-foreground/80 hover:text-primary transition-colors"
+                  className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-125 hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]"
                 >
                   <Github />
                 </a>
@@ -206,14 +204,14 @@ const ContactSection = () => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Facebook profile"
-                  className="text-foreground/80 hover:text-primary transition-colors"
+                  className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-125 hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]"
                 >
                   <Facebook />
                 </a>
               </div>
             </div>
           </div>
-          <div className="bg-card p-8 rounded-lg shadow-xs">
+          <div className="bg-card p-8 rounded-lg shadow-sm border border-border transition-all duration-300 hover:shadow-[0_10px_25px_rgba(167,139,250,0.1)]">
             <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
@@ -321,7 +319,7 @@ const ContactSection = () => {
                 type="submit"
                 aria-busy={isSubmitting}
                 className={cn(
-                  "cosmic-button w-full flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed",
+                  "btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:scale-100",
                 )}
               >
                 {isSubmitting ? (

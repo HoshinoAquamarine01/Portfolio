@@ -1,4 +1,5 @@
 import { Award, ExternalLink } from "lucide-react";
+import CertificateCard from "./CertificateCard";
 
 const certificates = [
   {
@@ -34,31 +35,31 @@ const certificates = [
       "https://www.udemy.com/certificate/UC-388e4002-e794-4bab-b7b1-1e38430326e9/",
   },
   {
-     id: 5,
+    id: 5,
     title: "Advanced React",
     issuer: "Coursera",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/0VY30WJYA44O",
   },
-   {
-     id: 6,
+  {
+    id: 6,
     title: "React basics",
     issuer: "Coursera",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/records/IJO8IVOTNTO0",
   },
-   {
-     id: 7,
+  {
+    id: 7,
     title: "Meta React Specialization",
     issuer: "Coursera",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/specialization/9DZJ1H8QH9R2",
   },
-   {
-     id: 8,
+  {
+    id: 8,
     title: "Google Cloud Fundamentals: Core Infrastructure",
     issuer: "Coursera",
     date: "2026",
@@ -66,13 +67,21 @@ const certificates = [
       "https://www.coursera.org/account/accomplishments/records/SQ91AQ7X0TZX",
   },
   {
-     id: 9,
+    id: 9,
     title: "Introduction to Containers w/ Docker, Kubernetes & OpenShift",
     issuer: "Coursera",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/H35YB6MAIBDG",
-  }
+  },
+  {
+    id: 10,
+    title: "Essential Google Cloud Infrastructure: Foundation",
+    issuer: "Coursera",
+    date: "2026",
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/I3MK8X80HT1U",
+  },
 ];
 
 const CertificateSection = () => {
@@ -89,38 +98,7 @@ const CertificateSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certificates.map((certificate) => (
-            <article
-              key={certificate.id}
-              className="bg-card p-6 rounded-lg shadow-xs card-hover"
-            >
-              <div className="flex items-start justify-between gap-3 mb-4">
-                <div className="p-2 rounded-full bg-primary/10">
-                  <Award className="h-5 w-5 text-primary" />
-                </div>
-                <span className="text-xs px-2 py-1 rounded-full bg-secondary text-secondary-foreground">
-                  Verified
-                </span>
-              </div>
-
-              <h3 className="text-lg font-semibold mb-2 leading-snug">
-                {certificate.title}
-              </h3>
-              <p className="text-muted-foreground text-sm mb-1">
-                {certificate.issuer}
-              </p>
-              <p className="text-muted-foreground text-sm mb-5">
-                Issued: {certificate.date}
-              </p>
-
-              <a
-                href={certificate.credentialUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-primary hover:opacity-80 transition-opacity duration-300"
-              >
-                View credential <ExternalLink size={16} />
-              </a>
-            </article>
+            <CertificateCard key={certificate.id} certificate={certificate} />
           ))}
         </div>
       </div>

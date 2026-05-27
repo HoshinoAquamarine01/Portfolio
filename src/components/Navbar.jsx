@@ -82,13 +82,21 @@ const Navbar = () => {
               key={key}
               href={item.href}
               className={cn(
-                "transition-all duration-300 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/60 rounded px-2 py-1",
+                "group relative transition-all duration-300 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/60 rounded px-2 py-1",
                 activeSection === item.href
-                  ? "text-primary font-semibold border-b-2 border-primary"
+                  ? "text-primary font-semibold"
                   : "text-foreground/80 hover:text-primary",
               )}
             >
               {item.name}
+              <span
+                className={cn(
+                  "absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary to-primary/70 transition-all duration-300",
+                  activeSection === item.href
+                    ? "w-full"
+                    : "w-0 group-hover:w-full",
+                )}
+              />
             </a>
           ))}
           <div className="text-sm text-primary font-semibold ml-4 pl-4 border-l border-border/50">

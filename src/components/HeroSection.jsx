@@ -65,7 +65,7 @@ const HeroSection = () => {
               <span
                 key={tech}
                 style={{ animationDelay: `${0.6 + idx * 0.1}s` }}
-                className="opacity-0 animate-fade-in rounded-full border border-border/70 bg-card/60 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:text-primary hover:bg-card/80 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 cursor-pointer"
+                className="opacity-0 animate-fade-in rounded-full border border-border/70 bg-card/60 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:text-primary hover:bg-card/80 hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:-translate-y-1 cursor-pointer hover:scale-[1.05]"
               >
                 {tech}
               </span>
@@ -73,12 +73,12 @@ const HeroSection = () => {
           </div>
 
           <div className="opacity-0 animate-fade-in-delay-4 flex flex-col gap-4 pt-2 sm:flex-row">
-            <a href="#projects" className="cosmic-button">
+            <a href="#projects" className="btn-primary">
               View Projects
             </a>
             <a
               href="#contact"
-              className="rounded-full border border-border/80 bg-card/60 px-6 py-2 font-medium text-foreground transition-all duration-300 hover:border-primary/60 hover:text-primary hover:shadow-md"
+              className="rounded-full border border-border/80 bg-card/60 px-6 py-2 font-medium text-foreground transition-all duration-300 hover:border-primary/60 hover:text-primary hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:scale-[1.05]"
             >
               Contact Me
             </a>
@@ -89,10 +89,10 @@ const HeroSection = () => {
             aria-label="Scroll to About section"
             className="mt-10 flex flex-col items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/60"
           >
-            <span className="rounded-full border border-border/80 bg-card/70 px-4 py-2 text-sm font-medium tracking-wide text-muted-foreground shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:text-primary hover:shadow-md">
+            <span className="rounded-full border border-border/80 bg-card/70 px-4 py-2 text-sm font-medium tracking-wide text-muted-foreground shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:text-primary hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:scale-[1.05]">
               Scroll Down
             </span>
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/80 bg-card/70 text-primary shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:shadow-md">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/80 bg-card/70 text-primary shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:scale-[1.05]">
               <ArrowDown className="h-4 w-4" />
             </span>
           </a>

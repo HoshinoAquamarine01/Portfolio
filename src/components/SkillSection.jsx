@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import SkillCard from "./SkillCard";
 const skills = [
   {
     name: "JavaScript",
@@ -108,10 +109,10 @@ const SkillSection = () => {
             <button
               key={category}
               className={cn(
-                "px-5 py-2 rounded-full transition-colors duration-300 capitalize focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/60",
+                "px-5 py-2 rounded-full transition-all duration-300 capitalize focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/60",
                 activeCategory === category
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-foreground hover:bg-secondary",
+                  ? "bg-primary text-primary-foreground hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:scale-105"
+                  : "bg-secondary/70 text-foreground hover:bg-secondary hover:shadow-sm hover:scale-[1.02]",
               )}
               onClick={() => setActiveCategory(category)}
               aria-pressed={activeCategory === category}
@@ -123,34 +124,7 @@ const SkillSection = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSkills.map((skill, key) => (
-            <div
-              key={key}
-              className="bg-card p-6 rounded-lg shadow-xs card-hover"
-            >
-              <div className="text-left mb-4">
-                <h3 className="font-semibold text-lg">{skill.name}</h3>
-              </div>
-              {skill.category !== "soft" && (
-                <>
-                  <div className="w-full bg-secondary/50 h-2 rounded-full overflow-hidden">
-                    <div
-                      className="bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease-out]"
-                      style={{ width: skill.level + "%" }}
-                      role="progressbar"
-                      aria-valuenow={skill.level}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                      aria-label={`${skill.name} proficiency: ${skill.level}%`}
-                    />
-                  </div>
-                  <div className="text-right mt-1">
-                    <span className="text-sm text-muted-foreground">
-                      {skill.level}%
-                    </span>
-                  </div>
-                </>
-              )}
-            </div>
+            <SkillCard key={key} skill={skill} />
           ))}
         </div>
       </div>

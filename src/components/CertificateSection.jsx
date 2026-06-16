@@ -5,7 +5,7 @@ const certificates = [
   {
     id: 1,
     title: "Accelerate Your Job Search with AI",
-    issuer: "Coursera",
+    issuer: "IBM",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/D7J5OS86QOY6?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
@@ -13,7 +13,7 @@ const certificates = [
   {
     id: 2,
     title: "Software Developer Career Guide and Interview Preparation",
-    issuer: "Coursera",
+    issuer: "IBM",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/70Z46E9UH6RQ?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
@@ -21,7 +21,7 @@ const certificates = [
   {
     id: 3,
     title: "Node.js & MongoDB: Developing Back-end Database Applications",
-    issuer: "Coursera",
+    issuer: "IBM",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/9Z3PPJIFHXGD",
@@ -37,7 +37,7 @@ const certificates = [
   {
     id: 5,
     title: "Advanced React",
-    issuer: "Coursera",
+    issuer: "Meta",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/0VY30WJYA44O",
@@ -45,7 +45,7 @@ const certificates = [
   {
     id: 6,
     title: "React basics",
-    issuer: "Coursera",
+    issuer: "Meta",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/records/IJO8IVOTNTO0",
@@ -53,7 +53,7 @@ const certificates = [
   {
     id: 7,
     title: "Meta React Specialization",
-    issuer: "Coursera",
+    issuer: "Meta",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/specialization/9DZJ1H8QH9R2",
@@ -61,7 +61,7 @@ const certificates = [
   {
     id: 8,
     title: "Google Cloud Fundamentals: Core Infrastructure",
-    issuer: "Coursera",
+    issuer: "Google Cloud Skills Boost",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/records/SQ91AQ7X0TZX",
@@ -69,7 +69,7 @@ const certificates = [
   {
     id: 9,
     title: "Introduction to Containers w/ Docker, Kubernetes & OpenShift",
-    issuer: "Coursera",
+    issuer: "IBM",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/H35YB6MAIBDG",
@@ -77,11 +77,19 @@ const certificates = [
   {
     id: 10,
     title: "Essential Google Cloud Infrastructure: Foundation",
-    issuer: "Coursera",
+    issuer: "Google Cloud Skills Boost",
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/I3MK8X80HT1U",
   },
+  {
+      id: 11,
+    title: "Learn Typescript",
+    issuer: "Scrimba",
+    date: "2026",
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/records/MSD0HRORLPN9",
+  }
 ];
 
 const CertificateSection = () => {

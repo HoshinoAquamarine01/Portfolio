@@ -28,7 +28,7 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
       className={cn(
         "fixed z-50 p-2.5 rounded-full transition-all duration-300 flex",
-        "top-5 right-5 sm:top-5 sm:right-5 max-sm:bottom-24 max-sm:right-5",
+        "top-5 right-5 sm:top-5 sm:right-5 max-sm:top-auto max-sm:bottom-24 max-sm:right-5",
         "border border-border hover:border-primary/50",
         "bg-card/60 hover:bg-card/80 backdrop-blur-sm",
         "hover:shadow-lg hover:shadow-primary/20",

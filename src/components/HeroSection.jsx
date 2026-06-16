@@ -65,7 +65,7 @@ const HeroSection = () => {
               <span
                 key={tech}
                 style={{ animationDelay: `${0.6 + idx * 0.1}s` }}
-                className="opacity-0 animate-fade-in rounded-full border border-border/70 bg-card/60 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:text-primary hover:bg-card/80 hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:-translate-y-1 cursor-pointer hover:scale-[1.05]"
+                className="opacity-0 animate-fade-in rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs sm:text-sm sm:px-4 sm:py-2 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:text-primary hover:bg-card/80 hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:-translate-y-1 cursor-pointer hover:scale-[1.05]"
               >
                 {tech}
               </span>

@@ -2,7 +2,7 @@ import { Search, X } from "lucide-react";
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import ffWebImg from "../assets/ff-web.png";
-import englishCenterImg from "../assets/englishcenter.png";
+import insuranceImg from "../assets/insurance.png";
 import appTrackerImg from "../assets/app-tracker.png";
 const projects = [
   {
@@ -18,14 +18,22 @@ const projects = [
   },
   {
     id: 2,
-    title: "English Center",
-    timeline: "11/2025 - 12/2025",
+    title: "Insurance-Management",
+    timeline: "3/2026 - 5/2026",
     description:
-      "A learning management platform developed for English centers to streamline daily academic operations and communication. The system supports class scheduling workflows, student profile and progress management, and role-based modules for administrators, teachers, and learners, helping teams manage teaching activities more efficiently and consistently.",
-    image: englishCenterImg,
-    tags: ["React", "Node.js", "MongoDB", "TailwindCSS", "Express.js", "Vite"],
+      "A comprehensive insurance management platform designed to digitalize policy lifecycles, premium tracking, and claims processing. The system features real-time payment monitoring via VietQR/SePay webhook integration, a robust security architecture (DAC/RBAC) with granular column-level access controls, and detailed audit logs for a highly secure and automated workflow.",
+    image: insuranceImg,
+    tags: [
+      "React",
+      "Node.js",
+      "SQL Server",
+      "TailwindCSS",
+      "Express.js",
+      "TypeScript",
+      "Vite",
+    ],
     demoUrl: null,
-    githubUrl: "https://github.com/vanhuy2005/english-center",
+    githubUrl: "https://github.com/HoshinoAquamarine01/Insurance-Managemnt",
   },
   {
     id: 3,

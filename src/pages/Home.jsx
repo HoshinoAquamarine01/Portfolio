@@ -1,4 +1,3 @@
-import ThemeToggle from "@/components/ThemeToggle";
 import StarBackground from "@/components/StarBackground";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
@@ -7,6 +6,7 @@ import SkillSection from "../components/SkillSection";
 import CertificateSection from "../components/CertificateSection";
 import ProjectSection from "../components/ProjectSection";
 import StatsSection from "../components/StatsSection";
+import DevDashboard from "../components/DevDashboard";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
 import RecruiterMode from "@/components/RecruiterMode";
@@ -38,6 +38,7 @@ const Home = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Scroll Progress Bar */}
@@ -56,7 +57,6 @@ const Home = () => {
         Skip to main content
       </a>
 
-      <ThemeToggle />
       <RecruiterMode />
       <StarBackground />
       <Navbar />
@@ -67,6 +67,7 @@ const Home = () => {
         <CertificateSection />
         <ProjectSection />
         <StatsSection />
+        <DevDashboard />
         <ContactSection />
       </main>
       <Footer />

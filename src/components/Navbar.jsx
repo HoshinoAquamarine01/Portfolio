@@ -1,14 +1,18 @@
 import { cn } from "@/lib/utils";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
+
 const navItems = [
   { name: "Home", href: "#hero" },
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Certificates", href: "#certificates" },
   { name: "Projects", href: "#projects" },
+  { name: "Dashboard", href: "#dashboard" },
   { name: "Contact", href: "#contact" },
 ];
+
 
 const getActiveSectionId = (sections) => {
   for (const section of sections) {
@@ -106,16 +110,19 @@ const Navbar = () => {
               second: "2-digit",
             })}
           </div>
+          <ThemeToggle className="p-2 bg-transparent border-none shadow-none backdrop-blur-none" />
         </div>
 
-        <button
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="md:hidden p-2 text-foreground z-50"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {" "}
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-2.5 md:hidden">
+          <ThemeToggle className="p-2 bg-transparent border-none shadow-none backdrop-blur-none" />
+          <button
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            className="p-2 text-foreground z-50"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
         <div
           ref={menuRef}
           className={cn(

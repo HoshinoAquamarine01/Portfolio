@@ -1,7 +1,7 @@
 import { Award, ExternalLink } from "lucide-react";
 import CertificateCard from "./CertificateCard";
 
-const certificates = [
+export const certificates = [
   {
     id: 1,
     title: "Accelerate Your Job Search with AI",

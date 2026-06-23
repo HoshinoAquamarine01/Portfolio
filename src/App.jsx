@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "@/pages/Home";
 import Notfound from "@/pages/Notfound";
 import { Toaster } from "react-hot-toast";
@@ -11,6 +11,7 @@ const VALID_HASH_SECTIONS = [
   "skills",
   "certificates",
   "projects",
+  "dashboard",
   "contact",
 ];
 
@@ -54,6 +55,7 @@ function App() {
             <Route path="/skills" element={<Home />} />
             <Route path="/certificates" element={<Home />} />
             <Route path="/projects" element={<Home />} />
+            <Route path="/dashboard" element={<Home />} />
             <Route path="/contact" element={<Home />} />
             <Route path="*" element={<Notfound />} />
           </Routes>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useScrollReveal from "@/hooks/useScrollReveal";
-
+import { certificates } from "./CertificateSection";
 const StatCounter = ({ end, duration = 2000, label, suffix = "" }) => {
   const [count, setCount] = useState(0);
   const [ref, isVisible] = useScrollReveal();
@@ -51,7 +51,7 @@ const StatsSection = () => {
       <div className="container mx-auto max-w-5xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <StatCounter end={3} label="Projects Completed" />
-          <StatCounter end={10} label="Certificates" />
+          <StatCounter end={certificates.length} label="Certificates" />
           <StatCounter end={3} label="Years Learning" />
           <StatCounter end={100} label="% Dedication" suffix="%" />
         </div>

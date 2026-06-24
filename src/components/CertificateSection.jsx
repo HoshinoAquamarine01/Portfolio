@@ -89,6 +89,14 @@ export const certificates = [
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/records/MSD0HRORLPN9",
+  },
+  {
+      id: 12,
+    title: "Claude 101",
+    issuer: "Anthropic",
+    date: "2026",
+    credentialUrl:
+      "https://verify.skilljar.com/c/euhznxc4myft",
   }
 ];
 

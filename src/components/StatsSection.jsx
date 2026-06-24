@@ -50,7 +50,7 @@ const StatsSection = () => {
     <section className="py-20 px-4 relative bg-linear-to-b from-background via-background/50 to-background">
       <div className="container mx-auto max-w-5xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <StatCounter end={3} label="Projects Completed" />
+          <StatCounter end={5} label="Projects Completed" />
           <StatCounter end={certificates.length} label="Certificates" />
           <StatCounter end={3} label="Years Learning" />
           <StatCounter end={100} label="% Dedication" suffix="%" />

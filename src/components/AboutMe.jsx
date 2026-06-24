@@ -3,21 +3,13 @@ import { Code, User, Briefcase, Download } from "lucide-react";
 import toast from "react-hot-toast";
 
 const AboutMe = () => {
-  const handleDownloadResume = async () => {
-    try {
-      const response = await fetch(import.meta.env.VITE_CV_URL);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "My_CV.pdf");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-      toast.success("Resume downloaded successfully!");
-    } catch (error) {
-      toast.error("Failed to download resume. Please try again.", error);
+  const handleDownloadResume = () => {
+    const cvUrl = import.meta.env.VITE_CV_URL;
+    if (cvUrl) {
+      window.open(cvUrl, "_blank", "noopener,noreferrer");
+      toast.success("Opening resume in a new tab...");
+    } else {
+      toast.error("Resume link is currently unavailable.");
     }
   };
   return (

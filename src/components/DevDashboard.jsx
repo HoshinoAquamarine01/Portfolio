@@ -16,12 +16,12 @@ import {
 
 // Mock Fallback Data in case of rate limits or offline state
 const FALLBACK_GITHUB_DATA = {
-  public_repos: 14,
-  followers: 4,
+  public_repos: 8,
+  followers: 2,
   avatar_url: "https://github.com/HoshinoAquamarine01.png",
   latestCommit: {
-    message: "feat: add secure auth flow with RBAC & audit logging",
-    repo: "HoshinoAquamarine01/Insurance-Managemnt",
+    message: "feat: update portfolio components & dynamic dev stats",
+    repo: "HoshinoAquamarine01/Portfolio",
     created_at: new Date().toISOString(),
   },
 };
@@ -29,14 +29,14 @@ const FALLBACK_GITHUB_DATA = {
 const LEARNING_ROADMAP = [
   {
     name: "Next.js",
-    progress: 85,
+    progress: 10,
     status: "In Progress",
     description: "App Router, SSR/SSG, Server Components, SEO optimization",
     color: "from-blue-500 to-indigo-600",
   },
   {
     name: "NestJS",
-    progress: 75,
+    progress: 25,
     status: "In Progress",
     description: "RESTful APIs, MVC, Dependency Injection, TypeORM, Guards",
     color: "from-red-500 to-pink-600",
@@ -92,8 +92,8 @@ const DevDashboard = () => {
 
     try {
       // 1. Check LocalStorage Cache (Cache for 15 minutes to prevent rate limiting)
-      const cachedData = localStorage.getItem("github_dev_dashboard_stats");
-      const cachedTime = localStorage.getItem("github_dev_dashboard_stats_time");
+      const cachedData = localStorage.getItem("github_dev_dashboard_stats_v2");
+      const cachedTime = localStorage.getItem("github_dev_dashboard_stats_time_v2");
 
       if (
         !isManual &&
@@ -106,12 +106,9 @@ const DevDashboard = () => {
         return;
       }
 
-      // 2. Fetch from GitHub API
+      // 2. Fetch User Profile
       const userResponse = await fetch(
         "https://api.github.com/users/HoshinoAquamarine01"
-      );
-      const eventsResponse = await fetch(
-        "https://api.github.com/users/HoshinoAquamarine01/events"
       );
 
       if (!userResponse.ok) {
@@ -121,17 +118,35 @@ const DevDashboard = () => {
       const userData = await userResponse.json();
       let latestCommit = null;
 
-      if (eventsResponse.ok) {
-        const events = await eventsResponse.json();
-        // Find the first push event
-        const pushEvent = events.find((event) => event.type === "PushEvent");
-        if (pushEvent && pushEvent.payload.commits?.length > 0) {
-          latestCommit = {
-            message: pushEvent.payload.commits[0].message,
-            repo: pushEvent.repo.name,
-            created_at: pushEvent.created_at,
-          };
+      // 3. Fetch latest pushed repo and commit
+      try {
+        const reposResponse = await fetch(
+          "https://api.github.com/users/HoshinoAquamarine01/repos?sort=pushed&per_page=1"
+        );
+        if (reposResponse.ok) {
+          const repos = await reposResponse.json();
+          if (repos && repos.length > 0) {
+            const latestRepo = repos[0];
+            const commitsResponse = await fetch(
+              `https://api.github.com/repos/${latestRepo.full_name}/commits?per_page=1`
+            );
+            if (commitsResponse.ok) {
+              const commits = await commitsResponse.json();
+              if (commits && commits.length > 0) {
+                latestCommit = {
+                  message: commits[0].commit.message,
+                  repo: latestRepo.full_name,
+                  created_at:
+                    commits[0].commit.committer?.date ||
+                    commits[0].commit.author?.date ||
+                    latestRepo.pushed_at,
+                };
+              }
+            }
+          }
         }
+      } catch (err) {
+        console.warn("Could not fetch latest commit detail", err);
       }
 
       const compiledStats = {
@@ -141,12 +156,12 @@ const DevDashboard = () => {
         latestCommit: latestCommit || FALLBACK_GITHUB_DATA.latestCommit,
       };
 
-      // 3. Save Cache
+      // 4. Save Cache
       localStorage.setItem(
-        "github_dev_dashboard_stats",
+        "github_dev_dashboard_stats_v2",
         JSON.stringify(compiledStats)
       );
-      localStorage.setItem("github_dev_dashboard_stats_time", String(Date.now()));
+      localStorage.setItem("github_dev_dashboard_stats_time_v2", String(Date.now()));
 
       setGitStats(compiledStats);
     } catch (error) {

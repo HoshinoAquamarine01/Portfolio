@@ -97,6 +97,14 @@ export const certificates = [
     date: "2026",
     credentialUrl:
       "https://verify.skilljar.com/c/euhznxc4myft",
+  },
+  {
+    id: 13,
+    title: "Claude platform 101",
+    issuer: "Anthropic",
+    date: "2026",
+    credentialUrl:
+      "https://verify.skilljar.com/c/xks28vh3kx69",
   }
 ];
 

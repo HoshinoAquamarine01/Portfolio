@@ -1,19 +1,22 @@
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, FileText } from "lucide-react";
 import { useState } from "react";
 import profileImg from "../assets/chandung.png";
+import { useSound } from "@/contexts/SoundContext";
+
 const techStack = [
-  "React",
+  "React 19",
   "Node.js",
   "MongoDB",
-  "TailwindCSS",
+  "TailwindCSS v4",
   "Express.js",
-  "MERN Stack",
+  "System Design",
 ];
 
 const PROFILE_IMAGE_SRC = profileImg;
 
-const HeroSection = () => {
+const HeroSection = ({ onOpenResumeModal }) => {
   const [showProfileImage, setShowProfileImage] = useState(true);
+  const { playClick, playHover } = useSound();
 
   return (
     <section
@@ -35,14 +38,14 @@ const HeroSection = () => {
                 />
               ) : (
                 <span className="text-lg font-semibold tracking-wide text-foreground/80">
-                  Your Photo
+                  Pham Gia Bao
                 </span>
               )}
             </div>
           </div>
 
-          <div className="opacity-0 animate-fade-in inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground backdrop-blur-sm">
-            Full-Stack Developer
+          <div className="opacity-0 animate-fade-in inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-primary backdrop-blur-sm shadow-xs">
+            Full Stack Engineer & Solution Architect
           </div>
 
           <div className="space-y-4">
@@ -54,9 +57,7 @@ const HeroSection = () => {
             </h1>
 
             <p className="opacity-0 animate-fade-in-delay-2 mx-auto max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg md:text-xl">
-              I build clean, reliable web applications with React, Node.js, and
-              MongoDB, focusing on performance, maintainability, and practical
-              business value.
+              Building scalable, high-performance web applications with clean code & modern architecture.
             </p>
           </div>
 
@@ -64,6 +65,7 @@ const HeroSection = () => {
             {techStack.map((tech, idx) => (
               <span
                 key={tech}
+                onMouseEnter={() => playHover()}
                 style={{ animationDelay: `${0.6 + idx * 0.1}s` }}
                 className="opacity-0 animate-fade-in rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs sm:text-sm sm:px-4 sm:py-2 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:text-primary hover:bg-card/80 hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:-translate-y-1 cursor-pointer hover:scale-[1.05]"
               >
@@ -72,20 +74,38 @@ const HeroSection = () => {
             ))}
           </div>
 
-          <div className="opacity-0 animate-fade-in-delay-4 flex flex-col gap-4 pt-2 sm:flex-row">
-            <a href="#projects" className="btn-primary">
-              View Projects
+          <div className="opacity-0 animate-fade-in-delay-4 flex flex-wrap items-center justify-center gap-4 pt-2">
+            <a
+              href="#projects"
+              onClick={() => playClick()}
+              className="btn-primary"
+            >
+              Explore Work
             </a>
+
+            <button
+              onClick={() => {
+                playClick();
+                onOpenResumeModal();
+              }}
+              className="flex items-center gap-2 rounded-full border border-primary/50 bg-secondary/80 px-6 py-2.5 font-semibold text-foreground transition-all duration-300 hover:border-primary hover:bg-secondary hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:scale-[1.05] cursor-pointer"
+            >
+              <FileText size={18} className="text-primary" />
+              <span>View Live CV</span>
+            </button>
+
             <a
               href="#contact"
-              className="rounded-full border border-border/80 bg-card/60 px-6 py-2 font-medium text-foreground transition-all duration-300 hover:border-primary/60 hover:text-primary hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:scale-[1.05]"
+              onClick={() => playClick()}
+              className="rounded-full border border-border/80 bg-card/60 px-6 py-2.5 font-medium text-foreground transition-all duration-300 hover:border-primary/60 hover:text-primary hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:scale-[1.05]"
             >
-              Contact Me
+              Get In Touch
             </a>
           </div>
 
           <a
             href="#about"
+            onClick={() => playClick()}
             aria-label="Scroll to About section"
             className="mt-10 flex flex-col items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/60"
           >
@@ -103,3 +123,5 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
+

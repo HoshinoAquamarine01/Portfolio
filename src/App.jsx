@@ -4,11 +4,13 @@ import Notfound from "@/pages/Notfound";
 import { Toaster } from "react-hot-toast";
 import PageLoader from "@/components/PageLoader";
 import { useState, useEffect } from "react";
+import { SoundProvider } from "@/contexts/SoundContext";
 
 const VALID_HASH_SECTIONS = [
   "hero",
   "about",
   "skills",
+  "architecture",
   "certificates",
   "projects",
   "dashboard",
@@ -41,7 +43,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <SoundProvider>
       {loading && <PageLoader />}
       <Toaster />
       <BrowserRouter basename="/Portfolio/">
@@ -53,6 +55,7 @@ function App() {
             <Route path="/hero" element={<Home />} />
             <Route path="/about" element={<Home />} />
             <Route path="/skills" element={<Home />} />
+            <Route path="/architecture" element={<Home />} />
             <Route path="/certificates" element={<Home />} />
             <Route path="/projects" element={<Home />} />
             <Route path="/dashboard" element={<Home />} />
@@ -61,8 +64,10 @@ function App() {
           </Routes>
         )}
       </BrowserRouter>
-    </>
+    </SoundProvider>
   );
 }
 
 export default App;
+
+

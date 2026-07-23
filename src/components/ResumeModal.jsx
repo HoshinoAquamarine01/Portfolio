@@ -3,7 +3,8 @@ import { X, Download, Printer, Copy, ExternalLink, FileText, Check } from "lucid
 import toast from "react-hot-toast";
 import { useSound } from "@/contexts/SoundContext";
 
-const PDF_PATH = "/Blue and Gray Simple Professional CV Resume (1).pdf";
+const BASE = import.meta.env.BASE_URL || "/";
+const PDF_PATH = `${BASE.endsWith("/") ? BASE : BASE + "/"}cv.pdf`;
 
 const ResumeModal = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);

@@ -1,3 +1,8 @@
+const getPdfPath = () => {
+  const base = import.meta.env.BASE_URL || "/";
+  return `${base.endsWith("/") ? base : base + "/"}cv.pdf`;
+};
+
 /**
  * Download resume as PDF
  * Place cv.pdf in the public directory
@@ -5,8 +10,8 @@
 export const downloadResume = () => {
   try {
     const link = document.createElement("a");
-    link.href = "/cv.pdf";
-    link.download = "cv.pdf";
+    link.href = getPdfPath();
+    link.download = "Resume_Software_Engineer.pdf";
     link.style.display = "none";
     document.body.appendChild(link);
     link.click();
@@ -22,9 +27,10 @@ export const downloadResume = () => {
  */
 export const openResume = () => {
   try {
-    window.open("/cv.pdf", "_blank", "noopener,noreferrer");
+    window.open(getPdfPath(), "_blank", "noopener,noreferrer");
   } catch (error) {
     console.error("Error opening resume:", error);
     throw new Error("Failed to open resume. Please try again.");
   }
 };
+

@@ -46,7 +46,20 @@ export const LanguageProvider = ({ children }) => {
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error("useLanguage must be used within a LanguageProvider");
+    return {
+      lang: "en",
+      setLang: () => {},
+      toggleLanguage: () => {},
+      t: (path) => {
+        const keys = path.split(".");
+        let current = translations.en;
+        for (const key of keys) {
+          if (!current || current[key] === undefined) return path;
+          current = current[key];
+        }
+        return current;
+      },
+    };
   }
   return context;
 };

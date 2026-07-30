@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import PageLoader from "@/components/PageLoader";
 import { useState, useEffect } from "react";
 import { SoundProvider } from "@/contexts/SoundContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const VALID_HASH_SECTIONS = [
   "hero",
@@ -43,28 +44,30 @@ function App() {
   }, []);
 
   return (
-    <SoundProvider>
-      {loading && <PageLoader />}
-      <Toaster />
-      <BrowserRouter basename="/Portfolio/">
-        {shouldShow404 ? (
-          <Notfound />
-        ) : (
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/hero" element={<Home />} />
-            <Route path="/about" element={<Home />} />
-            <Route path="/skills" element={<Home />} />
-            <Route path="/architecture" element={<Home />} />
-            <Route path="/certificates" element={<Home />} />
-            <Route path="/projects" element={<Home />} />
-            <Route path="/dashboard" element={<Home />} />
-            <Route path="/contact" element={<Home />} />
-            <Route path="*" element={<Notfound />} />
-          </Routes>
-        )}
-      </BrowserRouter>
-    </SoundProvider>
+    <LanguageProvider>
+      <SoundProvider>
+        {loading && <PageLoader />}
+        <Toaster />
+        <BrowserRouter basename="/Portfolio/">
+          {shouldShow404 ? (
+            <Notfound />
+          ) : (
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/hero" element={<Home />} />
+              <Route path="/about" element={<Home />} />
+              <Route path="/skills" element={<Home />} />
+              <Route path="/architecture" element={<Home />} />
+              <Route path="/certificates" element={<Home />} />
+              <Route path="/projects" element={<Home />} />
+              <Route path="/dashboard" element={<Home />} />
+              <Route path="/contact" element={<Home />} />
+              <Route path="*" element={<Notfound />} />
+            </Routes>
+          )}
+        </BrowserRouter>
+      </SoundProvider>
+    </LanguageProvider>
   );
 }
 

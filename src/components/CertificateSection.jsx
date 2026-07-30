@@ -105,6 +105,14 @@ export const certificates = [
     date: "2026",
     credentialUrl:
       "https://verify.skilljar.com/c/xks28vh3kx69",
+  },
+  {
+    id: 14,
+    title: "Elastic Google Cloud Infrastructure: Scaling and Automation",
+    issuer: "Google Cloud Skills Boost",
+    date: "2026",
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/U2GK7HFGVNN9",
   }
 ];
 

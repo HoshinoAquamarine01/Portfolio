@@ -113,7 +113,32 @@ export const certificates = [
     date: "2026",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/U2GK7HFGVNN9",
+  },
+     {
+    id: 15,
+    title: "React (Basic)",
+    issuer: "HackerRank",
+    date: "2026",
+    credentialUrl:
+      "https://www.hackerrank.com/certificates/e1de0552e3c1",
+  },
+   {
+    id: 16,
+    title: "Nodejs (Basic)",
+    issuer: "HackerRank",
+    date: "2026",
+    credentialUrl:
+      "https://www.hackerrank.com/certificates/88f5bc00b898",
+  },
+   {
+    id: 17,
+    title: "SQL (Basic)",
+    issuer: "HackerRank",
+    date: "2026",
+    credentialUrl:
+      "https://www.hackerrank.com/certificates/549d5f86e39a",
   }
+  
 ];
 
 const CertificateSection = () => {

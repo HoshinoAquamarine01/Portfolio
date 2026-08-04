@@ -32,6 +32,7 @@ jobs:
           VITE_EMAILJS_TEMPLATE_ID_OWNER: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID_OWNER }}
           VITE_RECEIVER_EMAIL: ${{ secrets.VITE_RECEIVER_EMAIL }}
           VITE_CV_URL: ${{ secrets.VITE_CV_URL }}
+          VITE_GOOGLE_SHEET_ID: ${{ secrets.VITE_GOOGLE_SHEET_ID }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

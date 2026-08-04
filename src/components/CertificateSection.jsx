@@ -1,147 +1,105 @@
-import { Award, ExternalLink } from "lucide-react";
+import { useState, useEffect } from "react";
 import CertificateCard from "./CertificateCard";
 
-export const certificates = [
-  {
-    id: 1,
-    title: "Accelerate Your Job Search with AI",
-    issuer: "IBM",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/verify/D7J5OS86QOY6?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
-  },
-  {
-    id: 2,
-    title: "Software Developer Career Guide and Interview Preparation",
-    issuer: "IBM",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/verify/70Z46E9UH6RQ?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
-  },
-  {
-    id: 3,
-    title: "Node.js & MongoDB: Developing Back-end Database Applications",
-    issuer: "IBM",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/verify/9Z3PPJIFHXGD",
-  },
-  {
-    id: 4,
-    title: "The Ultimate SQL Bootcamp : Go From Zero to Hero",
-    issuer: "Udemy",
-    date: "2026",
-    credentialUrl:
-      "https://www.udemy.com/certificate/UC-388e4002-e794-4bab-b7b1-1e38430326e9/",
-  },
-  {
-    id: 5,
-    title: "Advanced React",
-    issuer: "Meta",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/verify/0VY30WJYA44O",
-  },
-  {
-    id: 6,
-    title: "React basics",
-    issuer: "Meta",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/records/IJO8IVOTNTO0",
-  },
-  {
-    id: 7,
-    title: "Meta React Specialization",
-    issuer: "Meta",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/specialization/9DZJ1H8QH9R2",
-  },
-  {
-    id: 8,
-    title: "Google Cloud Fundamentals: Core Infrastructure",
-    issuer: "Google Cloud Skills Boost",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/records/SQ91AQ7X0TZX",
-  },
-  {
-    id: 9,
-    title: "Introduction to Containers w/ Docker, Kubernetes & OpenShift",
-    issuer: "IBM",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/verify/H35YB6MAIBDG",
-  },
-  {
-    id: 10,
-    title: "Essential Google Cloud Infrastructure: Foundation",
-    issuer: "Google Cloud Skills Boost",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/verify/I3MK8X80HT1U",
-  },
-  {
-      id: 11,
-    title: "Learn Typescript",
-    issuer: "Scrimba",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/records/MSD0HRORLPN9",
-  },
-  {
-      id: 12,
-    title: "Claude 101",
-    issuer: "Anthropic",
-    date: "2026",
-    credentialUrl:
-      "https://verify.skilljar.com/c/euhznxc4myft",
-  },
-  {
-    id: 13,
-    title: "Claude platform 101",
-    issuer: "Anthropic",
-    date: "2026",
-    credentialUrl:
-      "https://verify.skilljar.com/c/xks28vh3kx69",
-  },
-  {
-    id: 14,
-    title: "Elastic Google Cloud Infrastructure: Scaling and Automation",
-    issuer: "Google Cloud Skills Boost",
-    date: "2026",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/verify/U2GK7HFGVNN9",
-  },
-     {
-    id: 15,
-    title: "React (Basic)",
-    issuer: "HackerRank",
-    date: "2026",
-    credentialUrl:
-      "https://www.hackerrank.com/certificates/e1de0552e3c1",
-  },
-   {
-    id: 16,
-    title: "Nodejs (Basic)",
-    issuer: "HackerRank",
-    date: "2026",
-    credentialUrl:
-      "https://www.hackerrank.com/certificates/88f5bc00b898",
-  },
-   {
-    id: 17,
-    title: "SQL (Basic)",
-    issuer: "HackerRank",
-    date: "2026",
-    credentialUrl:
-      "https://www.hackerrank.com/certificates/549d5f86e39a",
-  }
-  
-];
+export const certificates = [];
+
+
+const RAW_SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID || "";
+const extractSheetId = (input) => {
+  if (!input) return "";
+  const match = input.match(/\/d\/([a-zA-Z0-9-_]+)/);
+  return match ? match[1] : input.trim();
+};
+
+const GOOGLE_SHEET_ID = extractSheetId(RAW_SHEET_ID);
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length <= 1) return [];
+
+  const parseRow = (line) => {
+    const result = [];
+    let cur = "";
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === "," && !inQuotes) {
+        result.push(cur.trim().replace(/^"|"$/g, ""));
+        cur = "";
+      } else {
+        cur += char;
+      }
+    }
+    result.push(cur.trim().replace(/^"|"$/g, ""));
+    return result;
+  };
+
+  const headers = parseRow(lines[0]).map((h) => h.toLowerCase());
+
+
+  const titleIdx = headers.findIndex(
+    (h) => h.includes("title") || h.includes("tên")
+  );
+  const issuerIdx = headers.findIndex(
+    (h) => h.includes("issuer") || h.includes("nơi") || h.includes("cấp")
+  );
+  const dateIdx = headers.findIndex(
+    (h) => h.includes("date") || h.includes("ngày") || h.includes("năm")
+  );
+  const urlIdx = headers.findIndex(
+    (h) =>
+      h.includes("url") ||
+      h.includes("link") ||
+      h.includes("credential") ||
+      h.includes("xác thực")
+  );
+
+  return lines
+    .slice(1)
+    .map((line, index) => {
+      const cols = parseRow(line);
+      if (!cols.length || !cols[0]) return null;
+
+      return {
+        id: index + 1,
+        title: cols[titleIdx >= 0 ? titleIdx : 0] || "Certificate",
+        issuer: cols[issuerIdx >= 0 ? issuerIdx : 1] || "Organization",
+        date: cols[dateIdx >= 0 ? dateIdx : 2] || "2026",
+        credentialUrl: cols[urlIdx >= 0 ? urlIdx : 3] || "#",
+      };
+    })
+    .filter(Boolean);
+}
 
 const CertificateSection = () => {
+  const [certificates, setCertificates] = useState([]);
+  const [loading, setLoading] = useState(!!GOOGLE_SHEET_ID);
+
+  useEffect(() => {
+    if (!GOOGLE_SHEET_ID) return;
+
+    const fetchCertificatesFromSheet = async () => {
+      try {
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv`;
+        const res = await fetch(sheetUrl);
+        if (!res.ok) throw new Error("Failed to fetch Google Sheet");
+        const csvData = await res.text();
+        const parsedData = parseCSV(csvData);
+
+        setCertificates(parsedData);
+      } catch (err) {
+        console.error("Lỗi khi tải chứng chỉ từ Google Sheets:", err);
+        setCertificates([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCertificatesFromSheet();
+  }, []);
+
   return (
     <section id="certificates" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
@@ -153,14 +111,25 @@ const CertificateSection = () => {
           certifications.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certificates.map((certificate) => (
-            <CertificateCard key={certificate.id} certificate={certificate} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-12 text-muted-foreground animate-pulse">
+            Đang tải chứng chỉ từ Google Sheets...
+          </div>
+        ) : certificates.length === 0 ? (
+          <div className="text-center py-12 text-muted-foreground">
+            Chưa có chứng chỉ nào trên Google Sheets.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {certificates.map((certificate) => (
+              <CertificateCard key={certificate.id} certificate={certificate} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
 export default CertificateSection;
+

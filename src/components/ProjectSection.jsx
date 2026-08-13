@@ -17,8 +17,8 @@ const projects = [
     tags: ["React", "Node.js", "MongoDB", "TailwindCSS", "Express.js", "Vite"],
     demoUrl: null,
     githubUrl: "https://github.com/vanhuy2005/fresh-fruit-web",
-    challenges: "Xử lý đồng bộ giỏ hàng thời gian thực giữa LocalStorage (khách vãng lai) và Database (khi đăng nhập), đồng thời giảm tải tần suất ghi/đọc (write/read requests) vào cơ sở dữ liệu MongoDB khi người dùng bấm tăng giảm số lượng liên tiếp.",
-    solutions: "Thiết kế CartContext chuyên dụng kết hợp cơ chế Debouncing. Khi khách hàng nhấn nút tăng/giảm số lượng sản phẩm nhanh, hệ thống sẽ gom và chờ 500ms không có thao tác mới rồi mới bắn một API duy nhất lên backend cập nhật DB.",
+    challenges: "Real-time cart synchronization between LocalStorage (guest users) and Database (upon login), while minimizing MongoDB read/write requests during rapid quantity adjustments.",
+    solutions: "Designed a custom CartContext integrated with a Debouncing mechanism. Rapid item quantity changes are batched and delayed by 500ms of inactivity before firing a single API update to the backend DB.",
     codeSnippet: `// Express.js Cart Controller Example - Syncing & Merging Carts
 router.post('/sync', authMiddleware, async (req, res) => {
   const { localCart } = req.body;
@@ -67,8 +67,8 @@ router.post('/sync', authMiddleware, async (req, res) => {
     ],
     demoUrl: null,
     githubUrl: "https://github.com/HoshinoAquamarine01/Insurance-Managemnt",
-    challenges: "Đảm bảo tính chính xác và an toàn tuyệt đối khi đối soát thanh toán hóa đơn tự động qua Webhook bên thứ ba (VietQR/SePay). Ngăn chặn tấn công Replay Attack và giả mạo Request giả lập thanh toán thành công.",
-    solutions: "Triển khai Middleware xác minh chữ ký bảo mật SHA-256 HMAC đính kèm trong Header của SePay Webhook. Thiết lập cơ chế kiểm tra trùng lặp mã giao dịch (idempotency key) trong cơ sở dữ liệu SQL Server để đảm bảo mỗi hóa đơn chỉ được kích hoạt dịch vụ đúng một lần.",
+    challenges: "Ensuring 100% accuracy and security during automated invoice reconciliation via third-party webhooks (VietQR/SePay), preventing replay attacks and forged payment verification requests.",
+    solutions: "Implemented SHA-256 HMAC signature verification middleware for SePay Webhooks. Integrated database idempotency key checks in SQL Server to guarantee each payment triggers service activation exactly once.",
     codeSnippet: `// SePay Webhook Verification Middleware (SHA256 Signature)
 import { Request, Response, NextFunction } from 'express';
 import crypto from 'crypto';
@@ -119,8 +119,8 @@ export const verifySePayWebhook = (req: Request, res: Response, next: NextFuncti
     ],
     demoUrl: null,
     githubUrl: "https://github.com/HoshinoAquamarine01/Job-Application-Tracker",
-    challenges: "Đồng bộ hóa tức thời vị trí của các thẻ Kanban ứng tuyển khi người dùng đăng nhập trên nhiều thiết bị hoặc mở nhiều tab trình duyệt, tránh trường hợp xung đột dữ liệu trạng thái kéo thả (Drag and Drop conflicts).",
-    solutions: "Xây dựng hạ tầng WebSockets với Socket.IO. Khi phát hiện sự kiện 'drag-end' từ UI, client lập tức cập nhật giao diện ngay trước khi có phản hồi (Optimistic UI updates) đồng thời gửi sự kiện WebSocket để đồng bộ tức thời tới các thiết bị khác, song song lưu trữ ngầm vào MongoDB.",
+    challenges: "Real-time synchronization of job application Kanban card positions across multiple devices or browser tabs to prevent drag-and-drop state conflicts and data desynchronization.",
+    solutions: "Architected a WebSocket synchronization layer using Socket.IO. UI states update optimistically while real-time events broadcast changes to parallel sessions, asynchronously persisting updates to MongoDB.",
     codeSnippet: `// Socket.IO Sync Gateway Handler for Kanban Boards
 import { Server, Socket } from 'socket.io';
 

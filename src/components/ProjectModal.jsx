@@ -95,10 +95,10 @@ const ProjectModal = ({ project, onClose }) => {
                   <div className="absolute top-0 left-0 w-1 h-full bg-red-400"></div>
                   <h5 className="font-bold text-foreground mb-2 flex items-center gap-2">
                     <Cpu className="h-4.5 w-4.5 text-red-400" />
-                    Thách thức kỹ thuật (Challenges)
+                    Technical Challenges
                   </h5>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {project.challenges || "Đang cập nhật chi tiết thách thức lập trình và xử lý logic phức tạp..."}
+                    {project.challenges || "Updating technical challenges and complex business logic details..."}
                   </p>
                 </div>
 
@@ -106,10 +106,10 @@ const ProjectModal = ({ project, onClose }) => {
                   <div className="absolute top-0 left-0 w-1 h-full bg-green-400"></div>
                   <h5 className="font-bold text-foreground mb-2 flex items-center gap-2">
                     <ShieldCheck className="h-4.5 w-4.5 text-green-400" />
-                    Giải pháp xử lý (Solutions)
+                    Solutions & Architecture
                   </h5>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {project.solutions || "Đang cập nhật chi tiết giải pháp thiết kế thuật toán và tối ưu hóa hệ thống..."}
+                    {project.solutions || "Updating architectural solutions and performance optimization details..."}
                   </p>
                 </div>
               </div>
@@ -134,7 +134,7 @@ const ProjectModal = ({ project, onClose }) => {
             <div className="space-y-6 animate-scale-in">
               <h4 className="text-lg font-semibold text-foreground mb-2">System Architecture Flow</h4>
               <p className="text-sm text-muted-foreground">
-                Sơ đồ phân rã luồng dữ liệu kiến trúc hệ thống của dự án:
+                Data flow architecture breakdown for this project:
               </p>
 
               {/* Responsive Flow Diagram */}
@@ -176,7 +176,7 @@ const ProjectModal = ({ project, onClose }) => {
               </div>
 
               <div className="p-4 rounded-lg bg-secondary/30 border border-border/40 text-xs sm:text-sm text-muted-foreground">
-                <span className="font-semibold text-primary">Chú thích luồng:</span> Client gửi yêu cầu API HTTP(s) (hoặc Websocket nếu có Socket.IO) đến server Node.js. Server thực hiện xác thực bảo mật, xử lý logic nghiệp vụ và giao tiếp với Database để truy xuất dữ liệu rồi phản hồi lại Client với định dạng JSON chuẩn.
+                <span className="font-semibold text-primary">Flow Annotation:</span> The client dispatches HTTP(S) API requests (or WebSocket frames via Socket.IO) to the Node.js backend. The server validates authentication, processes business logic, and interacts with the database layer before returning standardized JSON responses.
               </div>
             </div>
           )}
@@ -191,10 +191,10 @@ const ProjectModal = ({ project, onClose }) => {
               </div>
               
               <div className="relative rounded-xl border border-border/80 bg-zinc-950/95 p-4 text-xs font-mono text-zinc-300 overflow-x-auto shadow-inner leading-relaxed select-all">
-                <pre>{project.codeSnippet || "// Không có code snippet cho dự án này."}</pre>
+                <pre>{project.codeSnippet || "// No code snippet available for this project."}</pre>
               </div>
               <p className="text-xs text-muted-foreground">
-                * Đoạn mã trên đại diện cho luồng xử lý cốt lõi hoặc một tính năng quan trọng được triển khai trong mã nguồn dự án.
+                * The code snippet above represents the core processing logic or key feature implemented in the project codebase.
               </p>
             </div>
           )}

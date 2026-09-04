@@ -7,7 +7,7 @@ import {
   HelpCircle,
   Keyboard,
   Linkedin,
-  Sparkles,
+  Cpu,
   UserRoundSearch,
   X,
   Terminal as TerminalIcon,
@@ -32,7 +32,7 @@ const recruiterActions = [
     title: "Jump to Skills",
     description: "Review technical strengths quickly",
     shortcut: "2",
-    icon: Sparkles,
+    icon: Cpu,
     action: () => {
       document.querySelector("#skills")?.scrollIntoView({ behavior: "smooth" });
     },
@@ -79,7 +79,6 @@ const RecruiterMode = () => {
   const [activeTab, setActiveTab] = useState("snapshot");
   const [expandedIndex, setExpandedIndex] = useState(null);
   
-  // Terminal states
   const [terminalHistory, setTerminalHistory] = useState([
     "BaoPham OS [Version 1.0.0]",
     "(c) Pham Gia Bao. All rights reserved.",
@@ -100,7 +99,6 @@ const RecruiterMode = () => {
     [],
   );
 
-  // Auto scroll terminal history
   useEffect(() => {
     if (activeTab === "terminal") {
       terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -122,7 +120,6 @@ const RecruiterMode = () => {
         setIsOpen(false);
       }
 
-      // Hotkeys for jumps, only active when recruiter modal is open and on snapshot tab
       if (isOpen && activeTab === "snapshot" && document.activeElement?.tagName !== "INPUT") {
         const action = recruiterActions.find(
           (item) => item.shortcut === event.key,
@@ -270,7 +267,7 @@ const RecruiterMode = () => {
             <div className="mb-4 text-center shrink-0">
               <div className="mb-3 flex justify-center">
                 <p className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                  <Sparkles className="h-3.5 w-3.5" />
+                  <Cpu className="h-3.5 w-3.5" />
                   Recruiter Quick Review
                 </p>
               </div>
@@ -299,7 +296,6 @@ const RecruiterMode = () => {
               </button>
             </div>
 
-            {/* Tab Switched Header */}
             <div className="flex justify-center mb-6 shrink-0">
               <div className="inline-flex rounded-full bg-secondary/50 p-1 border border-border/50">
                 <button
@@ -338,7 +334,6 @@ const RecruiterMode = () => {
               </div>
             </div>
 
-            {/* Tab Content */}
             <div className="flex-1 overflow-y-auto mb-6 pr-2 scrollbar-thin">
               {activeTab === "faq" && (
                 <div className="space-y-3 text-left">
@@ -440,7 +435,6 @@ const RecruiterMode = () => {
                 >
                   <div className="terminal-scanlines" />
                   
-                  {/* Console Lines History */}
                   <div className="flex-1 overflow-y-auto pr-1 space-y-1 mb-2 scrollbar-thin text-xs sm:text-sm relative z-20">
                     {terminalHistory.map((line, idx) => (
                       <div key={idx} className="terminal-glow min-h-[1.2rem] whitespace-pre-wrap">
@@ -450,7 +444,6 @@ const RecruiterMode = () => {
                     <div ref={terminalEndRef} />
                   </div>
 
-                  {/* CLI Command Input */}
                   <form onSubmit={handleCommandSubmit} className="flex items-center gap-2 text-xs sm:text-sm shrink-0 border-t border-emerald-950/40 pt-2 relative z-20">
                     <span className="text-emerald-400 font-bold tracking-tight">guest@baopham-portfolio:~$</span>
                     <input
@@ -471,7 +464,6 @@ const RecruiterMode = () => {
               )}
             </div>
 
-            {/* Modal Footer */}
             <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-border/30 shrink-0">
               <button
                 type="button"

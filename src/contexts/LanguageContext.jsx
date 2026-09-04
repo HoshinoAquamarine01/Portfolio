@@ -23,7 +23,6 @@ export const LanguageProvider = ({ children }) => {
     let current = translations[lang];
     for (const key of keys) {
       if (current[key] === undefined) {
-        // Fallback to English if key missing
         let fallback = translations.en;
         for (const k of keys) {
           if (fallback[k] === undefined) return path;

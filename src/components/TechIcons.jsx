@@ -5,7 +5,6 @@ import {
   Lightbulb,
   Clock,
   Brain,
-  Sparkles,
   Zap,
   Code2,
 } from "lucide-react";
@@ -75,8 +74,20 @@ export const TechIcon = ({ name, className = "w-6 h-6", color }) => {
       </svg>
     ),
     jira: (
-      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-        <path fill="#0052CC" d="M11.5 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm-1.8 14.5l-4.2-4.2 1.4-1.4 2.8 2.8 6.4-6.4 1.4 1.4-7.8 7.8z" />
+      <svg className={className} viewBox="0 0 24 24" fill="none">
+        <path
+          d="M11.53 2c0 2.4 1.97 4.35 4.35 4.35h3.61v3.61c0 2.4 1.95 4.35 4.35 4.35V2h-12.31z"
+          fill="#2684FF"
+        />
+        <path
+          d="M6.77 6.77c0 2.4 1.97 4.35 4.35 4.35h3.61v3.61c0 2.4 1.95 4.35 4.35 4.35V6.77H6.77z"
+          fill="#0052CC"
+        />
+        <path
+          d="M2.01 11.54c0 2.4 1.97 4.35 4.35 4.35h3.61v3.61c0 2.4 1.95 4.35 4.35 4.35V11.54H2.01z"
+          fill="#0052CC"
+          fillOpacity="0.8"
+        />
       </svg>
     ),
     sqlserver: (

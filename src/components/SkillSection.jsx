@@ -6,7 +6,6 @@ import {
   Search,
   LayoutGrid,
   List,
-  Sparkles,
   Code,
   Layers,
   Wrench,
@@ -237,9 +236,8 @@ const SkillSection = () => {
   const { t, lang } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("card"); // 'card' | 'compact'
+  const [viewMode, setViewMode] = useState("card");
 
-  // Filter skills based on category and search query
   const filteredSkills = useMemo(() => {
     return skills.filter((skill) => {
       const matchesCategory =
@@ -261,7 +259,6 @@ const SkillSection = () => {
     });
   }, [activeCategory, searchQuery, lang]);
 
-  // Category item counts
   const counts = useMemo(() => {
     const map = { all: skills.length };
     skills.forEach((s) => {
@@ -285,15 +282,13 @@ const SkillSection = () => {
 
   return (
     <section id="skills" className="py-24 px-4 relative bg-secondary/20 overflow-hidden">
-      {/* Background Decor Ambient Glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto max-w-6xl relative z-10">
-        {/* Header Title */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" /> Tech Ecosystem
+            <Cpu className="w-3.5 h-3.5" /> Tech Ecosystem
           </div>
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight">
             {t("skills.title") || "Skills & Mastery"}
@@ -304,7 +299,6 @@ const SkillSection = () => {
           </p>
         </div>
 
-        {/* Stats Summary Highlights Banner */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 max-w-3xl mx-auto">
           <div className="bg-card/70 backdrop-blur-md border border-border/80 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover:border-primary/40 transition-colors">
             <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
@@ -343,9 +337,7 @@ const SkillSection = () => {
           </div>
         </div>
 
-        {/* Filter Controls & Search Bar Row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-          {/* Category Tabs */}
           <div className="flex flex-wrap justify-center md:justify-start gap-2 w-full md:w-auto">
             {categoryList.map((cat) => {
               const IconComp = cat.icon;
@@ -381,7 +373,6 @@ const SkillSection = () => {
             })}
           </div>
 
-          {/* Search Box & View Mode Toggle */}
           <div className="flex items-center gap-3 w-full md:w-auto shrink-0 justify-between md:justify-end">
             <div className="relative flex-1 md:w-64">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
@@ -432,7 +423,6 @@ const SkillSection = () => {
           </div>
         </div>
 
-        {/* Skill Grid / Compact List */}
         {filteredSkills.length > 0 ? (
           <div
             className={cn(

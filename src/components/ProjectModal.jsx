@@ -4,7 +4,6 @@ import { X, Code, Database, Layout, ArrowRight, ShieldCheck, Cpu } from "lucide-
 const ProjectModal = ({ project, onClose }) => {
   const [activeTab, setActiveTab] = useState("overview");
 
-  // Handle ESC key to close modal
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -25,7 +24,6 @@ const ProjectModal = ({ project, onClose }) => {
       aria-labelledby="modal-title"
     >
       <div className="relative w-full max-w-4xl rounded-2xl border border-border/80 bg-background/98 p-6 shadow-2xl backdrop-blur-lg flex flex-col max-h-[90vh] overflow-hidden text-left">
-        {/* Modal Header */}
         <div className="flex items-center justify-between pb-4 border-b border-border/40 shrink-0">
           <div>
             <h3 id="modal-title" className="text-2xl font-bold text-foreground bg-linear-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
@@ -45,7 +43,6 @@ const ProjectModal = ({ project, onClose }) => {
           </button>
         </div>
 
-        {/* Tab Controls */}
         <div className="flex border-b border-border/30 shrink-0 mt-4">
           <button
             onClick={() => setActiveTab("overview")}
@@ -79,7 +76,6 @@ const ProjectModal = ({ project, onClose }) => {
           </button>
         </div>
 
-        {/* Modal Body / Tab Content */}
         <div className="flex-1 overflow-y-auto py-6 pr-2 scrollbar-thin">
           {activeTab === "overview" && (
             <div className="space-y-6 animate-scale-in">
@@ -137,10 +133,7 @@ const ProjectModal = ({ project, onClose }) => {
                 Data flow architecture breakdown for this project:
               </p>
 
-              {/* Responsive Flow Diagram */}
               <div className="p-6 rounded-xl border border-border/50 bg-card/30 flex flex-col md:flex-row items-center justify-around gap-6 py-10 font-mono text-xs sm:text-sm">
-                
-                {/* Layer 1: Client/Frontend */}
                 <div className="flex flex-col items-center p-4 rounded-lg border border-primary/50 bg-primary/5 w-40 text-center shadow-md">
                   <Layout className="h-6 w-6 text-primary mb-2" />
                   <span className="font-bold text-foreground">Client Tier</span>
@@ -149,7 +142,6 @@ const ProjectModal = ({ project, onClose }) => {
 
                 <ArrowRight className="h-6 w-6 text-primary rotate-90 md:rotate-0" />
 
-                {/* Layer 2: API Gateway / Server */}
                 <div className="flex flex-col items-center p-4 rounded-lg border border-primary/50 bg-primary/5 w-44 text-center shadow-md">
                   <Cpu className="h-6 w-6 text-primary mb-2" />
                   <span className="font-bold text-foreground">Application API</span>
@@ -164,7 +156,6 @@ const ProjectModal = ({ project, onClose }) => {
 
                 <ArrowRight className="h-6 w-6 text-primary rotate-90 md:rotate-0" />
 
-                {/* Layer 3: Database & Services */}
                 <div className="flex flex-col items-center p-4 rounded-lg border border-primary/50 bg-primary/5 w-40 text-center shadow-md">
                   <Database className="h-6 w-6 text-primary mb-2" />
                   <span className="font-bold text-foreground">Database Layer</span>
@@ -172,7 +163,6 @@ const ProjectModal = ({ project, onClose }) => {
                     {project.tags.includes("SQL Server") ? "MS SQL Server" : "MongoDB Atlas"}
                   </span>
                 </div>
-
               </div>
 
               <div className="p-4 rounded-lg bg-secondary/30 border border-border/40 text-xs sm:text-sm text-muted-foreground">
@@ -200,7 +190,6 @@ const ProjectModal = ({ project, onClose }) => {
           )}
         </div>
 
-        {/* Modal Footer */}
         <div className="flex justify-end gap-3 pt-4 border-t border-border/40 shrink-0">
           <a
             href={project.githubUrl}

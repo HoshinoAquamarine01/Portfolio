@@ -44,7 +44,6 @@ const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Global Ctrl+K / Cmd+K listener
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
@@ -58,7 +57,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {/* Scroll Progress Bar */}
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-linear-to-r from-primary via-primary/70 to-primary/50 z-50 pointer-events-none"
         style={{
@@ -66,7 +64,6 @@ const Home = () => {
           transition: "width 0.1s ease-out",
         }}
       />
-      {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
         className="absolute -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 rounded-br focus:top-0 transition-all duration-200 z-50"
@@ -74,7 +71,6 @@ const Home = () => {
         Skip to main content
       </a>
 
-      {/* Enterprise Modals */}
       <RecruiterMode />
       <CommandPalette
         isOpen={isCmdOpen}
@@ -105,4 +101,3 @@ const Home = () => {
 };
 
 export default Home;
-

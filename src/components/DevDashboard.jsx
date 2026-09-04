@@ -5,7 +5,7 @@ import {
   Clock,
   RefreshCw,
   BookOpen,
-  Sparkles,
+  UserCheck,
   MapPin,
   Mail,
   Activity,
@@ -14,7 +14,6 @@ import {
   Calendar,
 } from "lucide-react";
 
-// Mock Fallback Data in case of rate limits or offline state
 const FALLBACK_GITHUB_DATA = {
   public_repos: 8,
   followers: 2,
@@ -63,7 +62,6 @@ const DevDashboard = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
 
-  // Live Clock Effect for Ho Chi Minh City Time
   useEffect(() => {
     const updateTime = () => {
       const options = {
@@ -82,7 +80,6 @@ const DevDashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch GitHub Stats
   const fetchGitHubStats = async (isManual = false) => {
     if (isManual) {
       setIsRefreshing(true);
@@ -91,7 +88,6 @@ const DevDashboard = () => {
     }
 
     try {
-      // 1. Check LocalStorage Cache (Cache for 15 minutes to prevent rate limiting)
       const cachedData = localStorage.getItem("github_dev_dashboard_stats_v2");
       const cachedTime = localStorage.getItem("github_dev_dashboard_stats_time_v2");
 
@@ -106,7 +102,6 @@ const DevDashboard = () => {
         return;
       }
 
-      // 2. Fetch User Profile
       const userResponse = await fetch(
         "https://api.github.com/users/HoshinoAquamarine01"
       );
@@ -118,7 +113,6 @@ const DevDashboard = () => {
       const userData = await userResponse.json();
       let latestCommit = null;
 
-      // 3. Fetch latest pushed repo and commit
       try {
         const reposResponse = await fetch(
           "https://api.github.com/users/HoshinoAquamarine01/repos?sort=pushed&per_page=1"
@@ -156,7 +150,6 @@ const DevDashboard = () => {
         latestCommit: latestCommit || FALLBACK_GITHUB_DATA.latestCommit,
       };
 
-      // 4. Save Cache
       localStorage.setItem(
         "github_dev_dashboard_stats_v2",
         JSON.stringify(compiledStats)
@@ -166,7 +159,6 @@ const DevDashboard = () => {
       setGitStats(compiledStats);
     } catch (error) {
       console.warn("GitHub API failed or was rate limited, using fallback data", error);
-      // Fallback
       setGitStats(FALLBACK_GITHUB_DATA);
     } finally {
       setLoading(false);
@@ -178,7 +170,6 @@ const DevDashboard = () => {
     fetchGitHubStats();
   }, []);
 
-  // Helper to format relative time
   const getRelativeTime = (isoString) => {
     if (!isoString) return "";
     const date = new Date(isoString);
@@ -211,12 +202,11 @@ const DevDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Column 1: Personal Status */}
           <div className="bg-card/40 backdrop-blur-md border border-border/70 rounded-2xl p-6 shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:border-primary/30 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="font-bold text-lg text-foreground flex items-center gap-2">
-                  <Sparkles className="h-5 w-5 text-primary" />
+                  <UserCheck className="h-5 w-5 text-primary" />
                   Current Status
                 </h3>
                 <span className="flex h-3 w-3 relative">
@@ -237,7 +227,7 @@ const DevDashboard = () => {
                     }}
                   />
                 </div>
-                <h4 className="font-bold text-lg text-foreground">Phạm Gia Bảo</h4>
+                <h4 className="font-bold text-lg text-foreground">Pham Gia Bao</h4>
                 <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                   <MapPin className="h-3.5 w-3.5 text-primary" />
                   Ho Chi Minh City, Vietnam
@@ -273,7 +263,6 @@ const DevDashboard = () => {
             </div>
           </div>
 
-          {/* Column 2: GitHub Live Stats */}
           <div className="bg-card/40 backdrop-blur-md border border-border/70 rounded-2xl p-6 shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:border-primary/30 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-6">
@@ -295,7 +284,6 @@ const DevDashboard = () => {
               </div>
 
               {loading ? (
-                // Loading Skeleton
                 <div className="space-y-6 py-4 animate-pulse">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="h-20 bg-muted rounded-xl"></div>
@@ -308,7 +296,6 @@ const DevDashboard = () => {
                 </div>
               ) : (
                 <div className="space-y-6">
-                  {/* Stats Count Grid */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-card/60 border border-border/50 rounded-xl p-4 text-center group hover:border-primary/40 hover:shadow-md transition-all duration-300">
                       <Code2 className="h-5 w-5 text-primary mx-auto mb-2" />
@@ -326,7 +313,6 @@ const DevDashboard = () => {
                     </div>
                   </div>
 
-                  {/* Latest Commit widget */}
                   {gitStats?.latestCommit && (
                     <div className="bg-card/60 border border-border/50 rounded-xl p-4 text-left">
                       <div className="flex items-center gap-2 mb-2">
@@ -371,7 +357,6 @@ const DevDashboard = () => {
             </div>
           </div>
 
-          {/* Column 3: Current Roadmap */}
           <div className="bg-card/40 backdrop-blur-md border border-border/70 rounded-2xl p-6 shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:border-primary/30 flex flex-col justify-between md:col-span-1">
             <div>
               <div className="flex items-center justify-between mb-6">
@@ -393,7 +378,6 @@ const DevDashboard = () => {
                         {roadmap.progress}%
                       </span>
                     </div>
-                    {/* Progress Track */}
                     <div className="h-2 w-full bg-secondary/80 rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full bg-linear-to-r ${roadmap.color} transition-all duration-1000 ease-out`}

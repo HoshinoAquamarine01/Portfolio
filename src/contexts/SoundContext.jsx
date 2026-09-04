@@ -34,7 +34,6 @@ export const SoundProvider = ({ children }) => {
       osc.start();
       osc.stop(ctx.currentTime + 0.04);
     } catch {
-      // Ignore audio context errors on auto-play policies
     }
   }, [isMuted]);
 
@@ -60,7 +59,6 @@ export const SoundProvider = ({ children }) => {
       osc.start();
       osc.stop(ctx.currentTime + 0.03);
     } catch {
-      // Ignore audio context errors
     }
   }, [isMuted]);
 
@@ -86,7 +84,6 @@ export const SoundProvider = ({ children }) => {
       osc.start();
       osc.stop(ctx.currentTime + 0.08);
     } catch {
-      // Ignore audio context errors
     }
   }, [isMuted]);
 

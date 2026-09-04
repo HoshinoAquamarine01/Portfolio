@@ -19,8 +19,7 @@ const projects = [
     githubUrl: "https://github.com/vanhuy2005/fresh-fruit-web",
     challenges: "Real-time cart synchronization between LocalStorage (guest users) and Database (upon login), while minimizing MongoDB read/write requests during rapid quantity adjustments.",
     solutions: "Designed a custom CartContext integrated with a Debouncing mechanism. Rapid item quantity changes are batched and delayed by 500ms of inactivity before firing a single API update to the backend DB.",
-    codeSnippet: `// Express.js Cart Controller Example - Syncing & Merging Carts
-router.post('/sync', authMiddleware, async (req, res) => {
+    codeSnippet: `router.post('/sync', authMiddleware, async (req, res) => {
   const { localCart } = req.body;
   try {
     let userCart = await Cart.findOne({ userId: req.user.id });
@@ -30,7 +29,6 @@ router.post('/sync', authMiddleware, async (req, res) => {
       return res.status(201).json(userCart);
     }
     
-    // Merge logic: combine local cart with database cart
     localCart.forEach(localItem => {
       const existingItem = userCart.items.find(
         item => item.productId.toString() === localItem.productId.toString()
@@ -69,8 +67,7 @@ router.post('/sync', authMiddleware, async (req, res) => {
     githubUrl: "https://github.com/HoshinoAquamarine01/Insurance-Managemnt",
     challenges: "Ensuring 100% accuracy and security during automated invoice reconciliation via third-party webhooks (VietQR/SePay), preventing replay attacks and forged payment verification requests.",
     solutions: "Implemented SHA-256 HMAC signature verification middleware for SePay Webhooks. Integrated database idempotency key checks in SQL Server to guarantee each payment triggers service activation exactly once.",
-    codeSnippet: `// SePay Webhook Verification Middleware (SHA256 Signature)
-import { Request, Response, NextFunction } from 'express';
+    codeSnippet: `import { Request, Response, NextFunction } from 'express';
 import crypto from 'crypto';
 
 export const verifySePayWebhook = (req: Request, res: Response, next: NextFunction) => {
@@ -81,13 +78,11 @@ export const verifySePayWebhook = (req: Request, res: Response, next: NextFuncti
     return res.status(401).json({ error: 'Signature header (x-sepay-signature) is missing' });
   }
 
-  // Create HMAC hash from request body using secret key
   const calculatedHash = crypto
     .createHmac('sha256', webhookSecret)
     .update(JSON.stringify(req.body))
     .digest('hex');
 
-  // Securely compare hashes using constant-time string comparison
   const isValid = crypto.timingSafeEqual(
     Buffer.from(calculatedHash),
     Buffer.from(signature)
@@ -121,8 +116,7 @@ export const verifySePayWebhook = (req: Request, res: Response, next: NextFuncti
     githubUrl: "https://github.com/HoshinoAquamarine01/Job-Application-Tracker",
     challenges: "Real-time synchronization of job application Kanban card positions across multiple devices or browser tabs to prevent drag-and-drop state conflicts and data desynchronization.",
     solutions: "Architected a WebSocket synchronization layer using Socket.IO. UI states update optimistically while real-time events broadcast changes to parallel sessions, asynchronously persisting updates to MongoDB.",
-    codeSnippet: `// Socket.IO Sync Gateway Handler for Kanban Boards
-import { Server, Socket } from 'socket.io';
+    codeSnippet: `import { Server, Socket } from 'socket.io';
 
 export const registerKanbanHandlers = (io: Server, socket: Socket) => {
   socket.on('join-workspace', (workspaceId: string) => {
@@ -139,7 +133,6 @@ export const registerKanbanHandlers = (io: Server, socket: Socket) => {
   }) => {
     const { cardId, sourceCol, destCol, index, workspaceId } = data;
     
-    // Broadcast changes to all other clients in the same workspace room
     socket.to(workspaceId).emit('card-moved-sync', {
       cardId,
       sourceCol,
@@ -147,7 +140,6 @@ export const registerKanbanHandlers = (io: Server, socket: Socket) => {
       index
     });
 
-    // Handle background database write securely
     try {
       await JobCard.findByIdAndUpdate(cardId, {
         column: destCol,
@@ -236,7 +228,6 @@ const ProjectSection = () => {
         )}
       </div>
 
-      {/* Project Detail Modal */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}

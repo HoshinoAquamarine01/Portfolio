@@ -11,7 +11,7 @@ import {
   UserCheck,
   ArrowRight,
   Code2,
-  Sparkles,
+  Compass,
 } from "lucide-react";
 import { useSound } from "@/contexts/SoundContext";
 import { downloadResume } from "@/lib/resume";
@@ -34,14 +34,12 @@ const CommandPalette = ({ isOpen, onClose, onOpenResumeModal }) => {
     }
   }, [isOpen, playModalOpen]);
 
-  // Command items list
   const commands = [
-    // Navigation
     {
       id: "nav-hero",
       group: "Navigation",
       title: "Jump to Hero Section",
-      icon: Sparkles,
+      icon: Compass,
       action: () => {
         document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
       },
@@ -91,8 +89,6 @@ const CommandPalette = ({ isOpen, onClose, onOpenResumeModal }) => {
         document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
       },
     },
-
-    // Quick Actions
     {
       id: "act-preview-cv",
       group: "Quick Actions",
@@ -120,8 +116,6 @@ const CommandPalette = ({ isOpen, onClose, onOpenResumeModal }) => {
         window.dispatchEvent(new CustomEvent("open-recruiter-mode"));
       },
     },
-
-    // Settings
     {
       id: "set-theme",
       group: "Settings",
@@ -142,14 +136,12 @@ const CommandPalette = ({ isOpen, onClose, onOpenResumeModal }) => {
     },
   ];
 
-  // Filter commands by search query
   const filteredCommands = commands.filter(
     (cmd) =>
       cmd.title.toLowerCase().includes(query.toLowerCase()) ||
       cmd.group.toLowerCase().includes(query.toLowerCase())
   );
 
-  // Keyboard navigation inside modal
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!isOpen) return;
@@ -185,7 +177,6 @@ const CommandPalette = ({ isOpen, onClose, onOpenResumeModal }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/70 backdrop-blur-md animate-fade-in">
       <div className="relative w-full max-w-2xl bg-background border border-primary/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
-        {/* Search Bar */}
         <div className="flex items-center px-4 py-3.5 border-b border-border/50 bg-secondary/20">
           <Search size={20} className="text-primary mr-3 shrink-0" />
           <input
@@ -204,7 +195,6 @@ const CommandPalette = ({ isOpen, onClose, onOpenResumeModal }) => {
           </div>
         </div>
 
-        {/* Command List */}
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
           {filteredCommands.length === 0 ? (
             <div className="p-8 text-center text-muted-foreground text-sm">
@@ -264,7 +254,6 @@ const CommandPalette = ({ isOpen, onClose, onOpenResumeModal }) => {
           )}
         </div>
 
-        {/* Footer info */}
         <div className="flex items-center justify-between px-4 py-2.5 bg-secondary/40 border-t border-border/50 text-[11px] text-muted-foreground font-medium">
           <div className="flex items-center gap-2">
             <Command size={12} className="text-primary" />
@@ -278,4 +267,3 @@ const CommandPalette = ({ isOpen, onClose, onOpenResumeModal }) => {
 };
 
 export default CommandPalette;
-

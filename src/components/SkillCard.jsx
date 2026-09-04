@@ -18,7 +18,6 @@ const SkillCard = ({ skill, viewMode = "card" }) => {
   const isSoft = skill.category === "soft";
   const desc = lang === "vi" ? skill.desc_vi : skill.desc_en;
 
-  // Level badge helper
   const getLevelColor = (level) => {
     if (level >= 90) return "bg-emerald-500/10 text-emerald-500 border-emerald-500/30";
     if (level >= 80) return "bg-primary/10 text-primary border-primary/30";
@@ -87,12 +86,10 @@ const SkillCard = ({ skill, viewMode = "card" }) => {
         transition: "all 0.6s ease-out, transform 0.3s ease, border-color 0.3s ease, shadow 0.3s ease",
       }}
     >
-      {/* Ambient Glow Overlays */}
       <div className="glow-border" />
       <div className="glow-bg" />
 
       <div className="relative z-10">
-        {/* Top Bar: Icon + Title + Core Badge */}
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3.5">
             <div
@@ -129,14 +126,12 @@ const SkillCard = ({ skill, viewMode = "card" }) => {
           ) : null}
         </div>
 
-        {/* Short Description */}
         {desc && (
           <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed mb-5 line-clamp-2">
             {desc}
           </p>
         )}
 
-        {/* Technical Sub-tags / Concepts */}
         {skill.tags && skill.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-5">
             {skill.tags.map((tag, idx) => (
@@ -151,7 +146,6 @@ const SkillCard = ({ skill, viewMode = "card" }) => {
         )}
       </div>
 
-      {/* Bottom Section: Progress Bar or Soft Skill Indicator */}
       <div className="relative z-10 mt-auto pt-2 border-t border-border/40">
         {!isSoft ? (
           <div>

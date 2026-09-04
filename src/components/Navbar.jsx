@@ -53,7 +53,6 @@ const Navbar = ({ onOpenCmdPalette }) => {
     return () => clearInterval(timer);
   }, []);
 
-  // Handle escape key to close mobile menu
   useEffect(() => {
     const handleEscapeKey = (event) => {
       if (event.key === "Escape" && isMenuOpen) {
@@ -85,7 +84,6 @@ const Navbar = ({ onOpenCmdPalette }) => {
           </span>
         </a>
 
-        {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">
           {navItems.map((item, key) => (
             <a
@@ -112,9 +110,7 @@ const Navbar = ({ onOpenCmdPalette }) => {
           ))}
         </div>
 
-        {/* Desktop Controls & Widgets */}
         <div className="hidden lg:flex items-center space-x-3">
-          {/* Command Palette Trigger */}
           <button
             onClick={() => {
               playClick();
@@ -127,7 +123,6 @@ const Navbar = ({ onOpenCmdPalette }) => {
             <span className="font-semibold text-[11px]">Ctrl K</span>
           </button>
 
-          {/* Sound FX Toggle */}
           <button
             onClick={() => {
               toggleSound();
@@ -144,7 +139,6 @@ const Navbar = ({ onOpenCmdPalette }) => {
 
           <ThemeToggle className="p-2 bg-transparent border-none shadow-none backdrop-blur-none" />
 
-          {/* Live Clock */}
           <div className="text-xs text-primary font-mono font-semibold pl-3 border-l border-border/50">
             {dateTime.toLocaleTimeString("en-US", {
               hour: "2-digit",
@@ -153,7 +147,6 @@ const Navbar = ({ onOpenCmdPalette }) => {
           </div>
         </div>
 
-        {/* Mobile controls */}
         <div className="flex items-center gap-2 lg:hidden">
           <button
             onClick={() => {
@@ -176,7 +169,6 @@ const Navbar = ({ onOpenCmdPalette }) => {
           </button>
         </div>
 
-        {/* Mobile menu overlay */}
         <div
           ref={menuRef}
           className={cn(
@@ -222,5 +214,3 @@ const Navbar = ({ onOpenCmdPalette }) => {
 };
 
 export default Navbar;
-
-

@@ -15,7 +15,6 @@ The site is structured to help recruiters and hiring managers quickly understand
 - **Performance Utilities** for critical image preloading and motion preferences
 - **Skip to Main Content** link for screen reader users
 
-See [IMPROVEMENTS.md](./IMPROVEMENTS.md) for detailed changes.
 
 ## Why this portfolio stands out
 

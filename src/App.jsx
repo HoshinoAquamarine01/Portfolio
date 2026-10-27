@@ -48,7 +48,7 @@ function App() {
       <SoundProvider>
         {loading && <PageLoader />}
         <Toaster />
-        <BrowserRouter basename="/Portfolio/">
+        <BrowserRouter basename="/">
           {shouldShow404 ? (
             <Notfound />
           ) : (

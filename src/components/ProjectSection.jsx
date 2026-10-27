@@ -2,103 +2,136 @@ import { Search, X } from "lucide-react";
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
-import ffWebImg from "../assets/ff-web.png";
-import insuranceImg from "../assets/insurance.png";
+import AiResume from "../assets/ai-resume.png";
+import SmartHR from "../assets/Smart-HR.png";
 import appTrackerImg from "../assets/app-tracker.png";
 
 const projects = [
   {
     id: 1,
-    title: "Fresh-Fruit-Web",
-    timeline: "09/2025 - 11/2025",
+    title: "AI Resume Analyzer CV Reviewer",
+    timeline: "05/2026 - 10/2026",
     description:
-      "A full-stack e-commerce web application for fresh produce, built to deliver a smooth shopping experience from product discovery to checkout. It includes category-based browsing, detailed product views, cart and quantity management, and a scalable backend structure designed for future admin features such as inventory control, order management, and promotional campaigns.",
-    image: ffWebImg,
-    tags: ["React", "Node.js", "MongoDB", "TailwindCSS", "Express.js", "Vite"],
-    demoUrl: null,
-    githubUrl: "https://github.com/vanhuy2005/fresh-fruit-web",
-    challenges: "Real-time cart synchronization between LocalStorage (guest users) and Database (upon login), while minimizing MongoDB read/write requests during rapid quantity adjustments.",
-    solutions: "Designed a custom CartContext integrated with a Debouncing mechanism. Rapid item quantity changes are batched and delayed by 500ms of inactivity before firing a single API update to the backend DB.",
-    codeSnippet: `router.post('/sync', authMiddleware, async (req, res) => {
-  const { localCart } = req.body;
-  try {
-    let userCart = await Cart.findOne({ userId: req.user.id });
-    if (!userCart) {
-      userCart = new Cart({ userId: req.user.id, items: localCart });
-      await userCart.save();
-      return res.status(201).json(userCart);
-    }
-    
-    localCart.forEach(localItem => {
-      const existingItem = userCart.items.find(
-        item => item.productId.toString() === localItem.productId.toString()
-      );
-      if (existingItem) {
-        existingItem.quantity += localItem.quantity;
-      } else {
-        userCart.items.push(localItem);
+      `An AI-powered career preparation platform designed to 
+      evaluate resumes, score ATS compatibility, and deliver 
+      actionable improvement suggestions. Features 
+      automated multi-format document parsing (PDF/DOCX), 
+      context-aware cover letter generation, customized mock interview coaching, 
+      real-time WebSocket progress alerts, and an administrative analytics dashboard.`,
+    image: AiResume,
+    tags: ["React", "Nest.js", "MongoDB", "TailwindCSS", "TypeScript", "AI integration", "Vite", "Redis"],
+    demoUrl: "https://ai-resume-analyzer-cv-reviewer.vercel.app/",
+    githubUrl: "https://github.com/HoshinoAquamarine01/AI-Resume-Analyzer-CV-Reviewer",
+    challenges: `Handling high-concurrency LLM rate limits (HTTP 429/503), 
+    unpredictable JSON formatting from LLM outputs, 
+    and extracting uncorrupted text across varied resume layouts 
+    (multi-column PDFs and Word DOCX files).`,
+    solutions: `Architected an automated model fallback 
+    chain (Gemini 3.7 -> 3.6 -> 3.5 Flash) with 
+    exponential backoff retries, enforced response MIME types 
+    (application/json), and built a robust parsing pipeline combining 
+    pdf-parse and mammoth with regex sanitization.`,
+    codeSnippet: `// Robust AI Inference with cascading model fallback & exponential backoff
+private async callGemini(prompt: string): Promise<string> {
+  const client = this.getClient();
+  const primary = this.getModelName();
+  const fallbacks = ["gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-flash-latest"];
+  const models = [primary, ...fallbacks.filter((m) => m !== primary)];
+  let lastErr: any;
+  for (const model of models) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const response = await client.models.generateContent({
+          model,
+          contents: prompt,
+          config: { responseMimeType: "application/json" },
+        });
+        if (!response?.text) throw new Error("Empty response returned from Gemini API");
+        return response.text;
+      } catch (err: any) {
+        lastErr = err;
+        const msg = String(err?.message || err);
+        const retryable = /\\b(503|429|500)\\b|UNAVAILABLE|RESOURCE_EXHAUSTED/i.test(msg);
+        if (/\\b404\\b|NOT_FOUND/i.test(msg)) break; // Skip to next fallback model
+        if (!retryable) throw new BadRequestException(\`Gemini API Error: \${msg}\`);
+        await new Promise((r) => setTimeout(r, 1000 * (attempt + 1))); // Backoff retry
       }
-    });
-    
-    await userCart.save();
-    res.json(userCart);
-  } catch (error) {
-    res.status(500).json({ message: "Cart synchronization failed", error: error.message });
+    }
   }
-});`
+  throw new BadRequestException(\`Gemini API Error: \${lastErr?.message || "Failed to generate AI response"}\`);
+}`
   },
   {
     id: 2,
-    title: "Insurance-Management",
-    timeline: "03/2026 - 05/2026",
+    title: "Smart HR Candidate Screening System",
+    timeline: "09/2026 - Current",
     description:
-      "A comprehensive insurance management platform designed to digitalize policy lifecycles, premium tracking, and claims processing. The system features real-time payment monitoring via VietQR/SePay webhook integration, a robust security architecture (DAC/RBAC) with granular column-level access controls, and detailed audit logs for a highly secure and automated workflow.",
-    image: insuranceImg,
+      `An AI-powered recruitment intelligence and candidate 
+      screening platform built to automate hiring workflows. 
+      The system leverages multi-strategy document parsers (PDF, DOCX, OCR) 
+      and LLMs (Google Gemini 2.0 Flash / OpenAI) 
+      to extract structured candidate profiles, 
+      compute multi-dimensional JD-fit scores (technical skill, seniority, domain relevance), 
+      and dynamically generate tailored interview questions and assessment tests.`,
+    image: SmartHR,
     tags: [
       "React",
-      "Node.js",
-      "SQL Server",
-      "TailwindCSS",
-      "Express.js",
+      "Nest.js",
       "TypeScript",
+      "MongoDB",
+      "AI Integration",
+      "Google Gemini",
+      "TailwindCSS",
       "Vite",
+      "Redis",
+      "OCR"
     ],
     demoUrl: null,
-    githubUrl: "https://github.com/HoshinoAquamarine01/Insurance-Managemnt",
-    challenges: "Ensuring 100% accuracy and security during automated invoice reconciliation via third-party webhooks (VietQR/SePay), preventing replay attacks and forged payment verification requests.",
-    solutions: "Implemented SHA-256 HMAC signature verification middleware for SePay Webhooks. Integrated database idempotency key checks in SQL Server to guarantee each payment triggers service activation exactly once.",
-    codeSnippet: `import { Request, Response, NextFunction } from 'express';
-import crypto from 'crypto';
+    githubUrl: "https://github.com/HoshinoAquamarine01/Smart-HR-Candidate-Screening-System",
+    challenges: `Extracting structured data accurately from diverse, 
+    unstructured CV formats (multi-column PDFs, legacy DOCX, scanned image CVs) 
+    without hallucination or schema drift, while managing LLM provider rate limits, 
+    token overhead, and inference latency during bulk candidate screening.`,
+    solutions: `Engineered a multi-strategy extraction pipeline 
+    (PdfExtract, DocxExtract, Tesseract OCR) with regex text 
+    sanitization to reduce prompt token footprint. 
+    Implemented a resilient multi-provider AI fallback architecture 
+    (Gemini 2.0 Flash primary with OpenAI GPT-4o-mini fallback) 
+    using strict JSON Schema enforcement and Redis caching for deterministic scoring.`,
+    codeSnippet:  `import { Injectable, Logger } from '@nestjs/common';
+import { GoogleGenAI } from '@google/genai';
+import { CV_EXTRACTION_GEMINI_SCHEMA } from '../schemas/cv-extraction.schema';
+import { CV_SYSTEM_PROMPT } from '../prompts/cv-extraction.prompt';
+import { StandardCvProfile } from '../interfaces/standard-cv.interface';
 
-export const verifySePayWebhook = (req: Request, res: Response, next: NextFunction) => {
-  const signature = req.headers['x-sepay-signature'] as string;
-  const webhookSecret = process.env.SEPAY_WEBHOOK_SECRET || 'fallback_secret';
+@Injectable()
+export class GeminiCvExtractor {
+  private client = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  private readonly modelName = 'gemini-2.0-flash';
 
-  if (!signature) {
-    return res.status(401).json({ error: 'Signature header (x-sepay-signature) is missing' });
+  async extractCvStructuredData(cleanedText: string): Promise<StandardCvProfile> {
+    const prompt = \`\${CV_SYSTEM_PROMPT}\\n\\n--- RAW CV CONTENT ---\\n\${cleanedText}\`;
+    // Enforce strict JSON Schema output to eliminate LLM hallucinations
+    const response = await this.client.models.generateContent({
+      model: this.modelName,
+      contents: prompt,
+      config: {
+        responseMimeType: 'application/json',
+        responseSchema: CV_EXTRACTION_GEMINI_SCHEMA,
+        temperature: 0.1,
+      },
+    });
+
+    const parsedData = JSON.parse(response.text || '{}');
+    return parsedData as StandardCvProfile;
   }
-
-  const calculatedHash = crypto
-    .createHmac('sha256', webhookSecret)
-    .update(JSON.stringify(req.body))
-    .digest('hex');
-
-  const isValid = crypto.timingSafeEqual(
-    Buffer.from(calculatedHash),
-    Buffer.from(signature)
-  );
-
-  if (!isValid) {
-    return res.status(403).json({ error: 'Signature verification failed. Potential tampering.' });
-  }
-
-  next();
-};`
+}`
   },
+
   {
     id: 3,
     title: "Application Job Tracker",
-    timeline: "02/2026 - Now",
+    timeline: "02/2026 - 10/2026",
     description:
       "An ongoing job application tracking system that helps users organize opportunities and stay on top of every application stage. It provides structured status pipelines, deadline reminders, and task-focused workflows to manage follow-ups, interviews, and priorities in one place, making the job search process more transparent, consistent, and easier to maintain over time.",
     image: appTrackerImg,
@@ -108,31 +141,25 @@ export const verifySePayWebhook = (req: Request, res: Response, next: NextFuncti
       "MongoDB",
       "TailwindCSS",
       "Express.js",
-      "TypeScript",
+      "JavaScript",
       "Vite",
       "Socket.IO",
     ],
-    demoUrl: null,
+    demoUrl: "https://apptracker.io.vn/",
     githubUrl: "https://github.com/HoshinoAquamarine01/Job-Application-Tracker",
     challenges: "Real-time synchronization of job application Kanban card positions across multiple devices or browser tabs to prevent drag-and-drop state conflicts and data desynchronization.",
     solutions: "Architected a WebSocket synchronization layer using Socket.IO. UI states update optimistically while real-time events broadcast changes to parallel sessions, asynchronously persisting updates to MongoDB.",
-    codeSnippet: `import { Server, Socket } from 'socket.io';
-
-export const registerKanbanHandlers = (io: Server, socket: Socket) => {
-  socket.on('join-workspace', (workspaceId: string) => {
+    codeSnippet: `// Real-time Kanban synchronization handler with Socket.IO & MongoDB
+export const registerKanbanHandlers = (io, socket) => {
+  socket.on('join-workspace', (workspaceId) => {
     socket.join(workspaceId);
     console.log(\`Socket \${socket.id} joined workspace \${workspaceId}\`);
   });
 
-  socket.on('card-moved', async (data: {
-    cardId: string;
-    sourceCol: string;
-    destCol: string;
-    index: number;
-    workspaceId: string;
-  }) => {
+  socket.on('card-moved', async (data) => {
     const { cardId, sourceCol, destCol, index, workspaceId } = data;
     
+    // Broadcast state transition to parallel sessions with zero latency
     socket.to(workspaceId).emit('card-moved-sync', {
       cardId,
       sourceCol,
@@ -141,6 +168,7 @@ export const registerKanbanHandlers = (io: Server, socket: Socket) => {
     });
 
     try {
+      // Asynchronously persist position index and column status in MongoDB
       await JobCard.findByIdAndUpdate(cardId, {
         column: destCol,
         positionIndex: index,

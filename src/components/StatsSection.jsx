@@ -84,7 +84,7 @@ const StatsSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <StatCounter end={5} label="Projects Completed" />
           <StatCounter end={certCount} label="Certificates" />
-          <StatCounter end={3} label="Years Learning" />
+          <StatCounter end={4} label="Years Learning" />
           <StatCounter end={100} label="% Dedication" suffix="%" />
         </div>
       </div>

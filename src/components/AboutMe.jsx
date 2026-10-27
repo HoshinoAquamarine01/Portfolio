@@ -2,8 +2,21 @@ import { Code, User, Briefcase, FileText, Download, Github } from "lucide-react"
 import { useSound } from "@/contexts/SoundContext";
 import { downloadResume } from "@/lib/resume";
 
+import toast from "react-hot-toast";
+
 const AboutMe = ({ onOpenResumeModal }) => {
   const { playClick, playHover } = useSound();
+
+  const handleDownloadCV = async () => {
+    playClick();
+    const toastId = toast.loading("Downloading CV...");
+    try {
+      await downloadResume();
+      toast.success("Download started immediately!", { id: toastId });
+    } catch {
+      toast.error("Failed to download CV.", { id: toastId });
+    }
+  };
 
   return (
     <section id="about" className="py-24 px-4 relative">
@@ -53,10 +66,7 @@ const AboutMe = ({ onOpenResumeModal }) => {
               </button>
 
               <button
-                onClick={() => {
-                  playClick();
-                  downloadResume();
-                }}
+                onClick={handleDownloadCV}
                 className="btn-secondary flex items-center gap-2 cursor-pointer"
               >
                 <Download size={18} />

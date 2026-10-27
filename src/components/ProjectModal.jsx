@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { X, Code, Database, Layout, ArrowRight, ShieldCheck, Cpu } from "lucide-react";
+import { X, ShieldCheck, Cpu } from "lucide-react";
+import { AiResumeArchitecture } from "./architectures/AiResumeArchitecture";
+import { SmartHrArchitecture } from "./architectures/SmartHrArchitecture";
+import { JobTrackerArchitecture } from "./architectures/JobTrackerArchitecture";
+import { DefaultArchitecture } from "./architectures/DefaultArchitecture";
 
 const ProjectModal = ({ project, onClose }) => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -16,6 +20,18 @@ const ProjectModal = ({ project, onClose }) => {
 
   if (!project) return null;
 
+  const isAiResume =
+    project.title?.toLowerCase().includes("resume") ||
+    project.title?.toLowerCase().includes("ai resume");
+
+  const isSmartHr =
+    project.title?.toLowerCase().includes("smart hr") ||
+    project.title?.toLowerCase().includes("screening");
+
+  const isJobTracker =
+    project.title?.toLowerCase().includes("tracker") ||
+    project.title?.toLowerCase().includes("job application");
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4 py-8 backdrop-blur-md animate-fade-in"
@@ -23,15 +39,16 @@ const ProjectModal = ({ project, onClose }) => {
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      <div className="relative w-full max-w-4xl rounded-2xl border border-border/80 bg-background/98 p-6 shadow-2xl backdrop-blur-lg flex flex-col max-h-[90vh] overflow-hidden text-left">
+      <div className="relative w-full max-w-5xl rounded-2xl border border-border/80 bg-background/98 p-6 shadow-2xl backdrop-blur-lg flex flex-col max-h-[90vh] overflow-hidden text-left">
         <div className="flex items-center justify-between pb-4 border-b border-border/40 shrink-0">
           <div>
-            <h3 id="modal-title" className="text-2xl font-bold text-foreground bg-linear-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+            <h3
+              id="modal-title"
+              className="text-2xl font-bold text-foreground bg-linear-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent"
+            >
               {project.title}
             </h3>
-            <p className="text-xs text-muted-foreground mt-1">
-              Timeline: {project.timeline}
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">Timeline: {project.timeline}</p>
           </div>
           <button
             type="button"
@@ -56,13 +73,18 @@ const ProjectModal = ({ project, onClose }) => {
           </button>
           <button
             onClick={() => setActiveTab("architecture")}
-            className={`px-4 py-2 border-b-2 text-sm font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+            className={`px-4 py-2 border-b-2 text-sm font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
               activeTab === "architecture"
                 ? "border-primary text-primary"
                 : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             Architecture
+            {(isAiResume || isSmartHr || isJobTracker) && (
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/15 text-primary border border-primary/20">
+                Detailed Flow
+              </span>
+            )}
           </button>
           <button
             onClick={() => setActiveTab("code")}
@@ -94,7 +116,8 @@ const ProjectModal = ({ project, onClose }) => {
                     Technical Challenges
                   </h5>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {project.challenges || "Updating technical challenges and complex business logic details..."}
+                    {project.challenges ||
+                      "Updating technical challenges and complex business logic details..."}
                   </p>
                 </div>
 
@@ -105,7 +128,8 @@ const ProjectModal = ({ project, onClose }) => {
                     Solutions & Architecture
                   </h5>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {project.solutions || "Updating architectural solutions and performance optimization details..."}
+                    {project.solutions ||
+                      "Updating architectural solutions and performance optimization details..."}
                   </p>
                 </div>
               </div>
@@ -128,46 +152,15 @@ const ProjectModal = ({ project, onClose }) => {
 
           {activeTab === "architecture" && (
             <div className="space-y-6 animate-scale-in">
-              <h4 className="text-lg font-semibold text-foreground mb-2">System Architecture Flow</h4>
-              <p className="text-sm text-muted-foreground">
-                Data flow architecture breakdown for this project:
-              </p>
-
-              <div className="p-6 rounded-xl border border-border/50 bg-card/30 flex flex-col md:flex-row items-center justify-around gap-6 py-10 font-mono text-xs sm:text-sm">
-                <div className="flex flex-col items-center p-4 rounded-lg border border-primary/50 bg-primary/5 w-40 text-center shadow-md">
-                  <Layout className="h-6 w-6 text-primary mb-2" />
-                  <span className="font-bold text-foreground">Client Tier</span>
-                  <span className="text-[10px] text-muted-foreground mt-1">React, Vite, CSS</span>
-                </div>
-
-                <ArrowRight className="h-6 w-6 text-primary rotate-90 md:rotate-0" />
-
-                <div className="flex flex-col items-center p-4 rounded-lg border border-primary/50 bg-primary/5 w-44 text-center shadow-md">
-                  <Cpu className="h-6 w-6 text-primary mb-2" />
-                  <span className="font-bold text-foreground">Application API</span>
-                  <span className="text-[10px] text-muted-foreground mt-1">Node.js, Express</span>
-                  {project.tags.includes("Socket.IO") && (
-                    <span className="text-[10px] bg-green-500/10 text-green-400 border border-green-500/20 px-1.5 rounded mt-1">WS: Socket.IO</span>
-                  )}
-                  {project.tags.includes("SQL Server") && (
-                    <span className="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-1.5 rounded mt-1">TS / Controllers</span>
-                  )}
-                </div>
-
-                <ArrowRight className="h-6 w-6 text-primary rotate-90 md:rotate-0" />
-
-                <div className="flex flex-col items-center p-4 rounded-lg border border-primary/50 bg-primary/5 w-40 text-center shadow-md">
-                  <Database className="h-6 w-6 text-primary mb-2" />
-                  <span className="font-bold text-foreground">Database Layer</span>
-                  <span className="text-[10px] text-muted-foreground mt-1">
-                    {project.tags.includes("SQL Server") ? "MS SQL Server" : "MongoDB Atlas"}
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-lg bg-secondary/30 border border-border/40 text-xs sm:text-sm text-muted-foreground">
-                <span className="font-semibold text-primary">Flow Annotation:</span> The client dispatches HTTP(S) API requests (or WebSocket frames via Socket.IO) to the Node.js backend. The server validates authentication, processes business logic, and interacts with the database layer before returning standardized JSON responses.
-              </div>
+              {isAiResume ? (
+                <AiResumeArchitecture />
+              ) : isSmartHr ? (
+                <SmartHrArchitecture />
+              ) : isJobTracker ? (
+                <JobTrackerArchitecture />
+              ) : (
+                <DefaultArchitecture project={project} />
+              )}
             </div>
           )}
 
@@ -179,12 +172,13 @@ const ProjectModal = ({ project, onClose }) => {
                   {project.tags.includes("TypeScript") ? "TypeScript" : "JavaScript"}
                 </span>
               </div>
-              
+
               <div className="relative rounded-xl border border-border/80 bg-zinc-950/95 p-4 text-xs font-mono text-zinc-300 overflow-x-auto shadow-inner leading-relaxed select-all">
                 <pre>{project.codeSnippet || "// No code snippet available for this project."}</pre>
               </div>
               <p className="text-xs text-muted-foreground">
-                * The code snippet above represents the core processing logic or key feature implemented in the project codebase.
+                * The code snippet above represents the core processing logic or key feature
+                implemented in the project codebase.
               </p>
             </div>
           )}
@@ -199,10 +193,7 @@ const ProjectModal = ({ project, onClose }) => {
           >
             GitHub Repo
           </a>
-          <button
-            onClick={onClose}
-            className="cosmic-button text-sm cursor-pointer"
-          >
+          <button onClick={onClose} className="cosmic-button text-sm cursor-pointer">
             Close Details
           </button>
         </div>
